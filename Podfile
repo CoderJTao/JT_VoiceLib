@@ -10,6 +10,7 @@ target 'JT_VoiceLib' do
 	pod 'Moya/RxSwift'
 	pod 'Moya/ReactiveSwift'
 	pod 'RxCocoa', '~> 4.0.0'
+	pod 'Hero', '~> 1.0.0'
   target 'JT_VoiceLibTests' do
     inherit! :search_paths
     # Pods for testing

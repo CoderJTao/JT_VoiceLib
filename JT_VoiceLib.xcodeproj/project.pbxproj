@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		3DD910F32E43A11E603EC893 /* Pods_JT_VoiceLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69EF940BBF32480357E08B68 /* Pods_JT_VoiceLib.framework */; };
 		5E7A0B8BD4D827A4B613D03C /* Pods_JT_VoiceLibUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEFE5F44054211551D983D2 /* Pods_JT_VoiceLibUITests.framework */; };
+		6C1742201FB1A999003D995F /* FindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C17421F1FB1A999003D995F /* FindViewModel.swift */; };
+		6C1742221FB1A9A7003D995F /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1742211FB1A9A7003D995F /* LibraryViewModel.swift */; };
+		6C1742241FB1A9B1003D995F /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1742231FB1A9B1003D995F /* MineViewModel.swift */; };
+		6C1742261FB1AA0F003D995F /* NetWorkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1742251FB1AA0F003D995F /* NetWorkService.swift */; };
 		6C5CB41B1FB1694400949BFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5CB41A1FB1694400949BFE /* AppDelegate.swift */; };
 		6C5CB4201FB1694400949BFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C5CB41E1FB1694400949BFE /* Main.storyboard */; };
 		6C5CB4221FB1694400949BFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C5CB4211FB1694400949BFE /* Assets.xcassets */; };
@@ -44,6 +48,10 @@
 		187CC235276004F595BB5BF1 /* Pods-JT_VoiceLibTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JT_VoiceLibTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JT_VoiceLibTests/Pods-JT_VoiceLibTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5878E0220166938FAF6C70A8 /* Pods-JT_VoiceLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JT_VoiceLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-JT_VoiceLib/Pods-JT_VoiceLib.release.xcconfig"; sourceTree = "<group>"; };
 		69EF940BBF32480357E08B68 /* Pods_JT_VoiceLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JT_VoiceLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C17421F1FB1A999003D995F /* FindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewModel.swift; sourceTree = "<group>"; };
+		6C1742211FB1A9A7003D995F /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
+		6C1742231FB1A9B1003D995F /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
+		6C1742251FB1AA0F003D995F /* NetWorkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkService.swift; sourceTree = "<group>"; };
 		6C5CB4171FB1694400949BFE /* JT_VoiceLib.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JT_VoiceLib.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C5CB41A1FB1694400949BFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6C5CB41F1FB1694400949BFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -168,6 +176,7 @@
 		6C5CB4561FB1982400949BFE /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				6C1742251FB1AA0F003D995F /* NetWorkService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -176,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				6C5CB45A1FB1985800949BFE /* FindViewController.swift */,
+				6C17421F1FB1A999003D995F /* FindViewModel.swift */,
 			);
 			path = Find;
 			sourceTree = "<group>";
@@ -184,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				6C5CB45C1FB1986400949BFE /* LibraryViewController.swift */,
+				6C1742211FB1A9A7003D995F /* LibraryViewModel.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -192,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				6C5CB45E1FB1986F00949BFE /* MineViewController.swift */,
+				6C1742231FB1A9B1003D995F /* MineViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -524,7 +536,11 @@
 			files = (
 				6C5CB41B1FB1694400949BFE /* AppDelegate.swift in Sources */,
 				6C5CB45D1FB1986400949BFE /* LibraryViewController.swift in Sources */,
+				6C1742261FB1AA0F003D995F /* NetWorkService.swift in Sources */,
+				6C1742241FB1A9B1003D995F /* MineViewModel.swift in Sources */,
 				6C5CB45B1FB1985800949BFE /* FindViewController.swift in Sources */,
+				6C1742201FB1A999003D995F /* FindViewModel.swift in Sources */,
+				6C1742221FB1A9A7003D995F /* LibraryViewModel.swift in Sources */,
 				6C5CB45F1FB1986F00949BFE /* MineViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
