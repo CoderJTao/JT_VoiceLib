@@ -1,0 +1,6 @@
+framework module Pods_JT_VoiceLib {
+  umbrella header "Pods-JT_VoiceLib-umbrella.h"
+
+  export *
+  module * { export * }
+}

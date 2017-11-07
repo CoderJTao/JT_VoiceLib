@@ -1,0 +1,6 @@
+framework module Pods_JT_VoiceLibTests {
+  umbrella header "Pods-JT_VoiceLibTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
