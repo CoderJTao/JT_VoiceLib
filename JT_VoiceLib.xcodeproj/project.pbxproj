@@ -131,7 +131,7 @@
 				6C5CB4211FB1694400949BFE /* Assets.xcassets */,
 				6C5CB4231FB1694400949BFE /* LaunchScreen.storyboard */,
 				6C5CB4261FB1694400949BFE /* Info.plist */,
-				6C5CB4551FB1982400949BFE /* Helper */,
+				6C8559821FB1E49C00635E73 /* Helpers */,
 				6C5CB4561FB1982400949BFE /* Service */,
 				6C5CB4541FB1980900949BFE /* Modules */,
 			);
@@ -164,13 +164,6 @@
 				6C5CB4591FB1984100949BFE /* Mine */,
 			);
 			path = Modules;
-			sourceTree = "<group>";
-		};
-		6C5CB4551FB1982400949BFE /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helper;
 			sourceTree = "<group>";
 		};
 		6C5CB4561FB1982400949BFE /* Service */ = {
@@ -206,6 +199,13 @@
 				6C1742231FB1A9B1003D995F /* MineViewModel.swift */,
 			);
 			path = Mine;
+			sourceTree = "<group>";
+		};
+		6C8559821FB1E49C00635E73 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		8068A4E7512729BD86688EAF /* Frameworks */ = {
@@ -444,6 +444,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-JT_VoiceLib/Pods-JT_VoiceLib-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -453,6 +454,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -711,6 +713,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KL3TMC97YB;
 				INFOPLIST_FILE = JT_VoiceLib/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.taoJiang.JT-VoiceLib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -727,6 +730,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KL3TMC97YB;
 				INFOPLIST_FILE = JT_VoiceLib/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.taoJiang.JT-VoiceLib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
