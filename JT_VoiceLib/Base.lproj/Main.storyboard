@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dmX-kr-qzN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dmX-kr-qzN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -35,14 +36,40 @@
                     <view key="view" contentMode="scaleToFill" id="xHR-Rg-Gm5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rN2-NR-UjA">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Uid-JM-MXI">
+                                    <size key="itemSize" width="264" height="382"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Rkx-lj-IuX" id="ojT-aA-rhz"/>
+                                    <outlet property="delegate" destination="Rkx-lj-IuX" id="lWc-2a-n3x"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="rN2-NR-UjA" firstAttribute="top" secondItem="gv4-cp-nO4" secondAttribute="top" id="GPz-Y2-gAV"/>
+                            <constraint firstItem="rN2-NR-UjA" firstAttribute="leading" secondItem="gv4-cp-nO4" secondAttribute="leading" id="P2c-e4-IxE"/>
+                            <constraint firstItem="gv4-cp-nO4" firstAttribute="trailing" secondItem="rN2-NR-UjA" secondAttribute="trailing" id="VjZ-IV-qtv"/>
+                            <constraint firstItem="gv4-cp-nO4" firstAttribute="bottom" secondItem="rN2-NR-UjA" secondAttribute="bottom" id="efH-p1-cMH"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="gv4-cp-nO4"/>
                     </view>
                     <navigationItem key="navigationItem" title="发现" id="Sqw-aa-iev"/>
+                    <connections>
+                        <outlet property="collectionView" destination="rN2-NR-UjA" id="1dw-jP-bAR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rza-eh-fi3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-964" y="449"/>
+            <point key="canvasLocation" x="-964" y="448.42578710644682"/>
         </scene>
         <!--发现-->
         <scene sceneID="SVd-9x-9QK">
@@ -129,11 +156,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="home" width="32" height="32"/>
-        <image name="home_select" width="32" height="32"/>
-        <image name="library" width="32" height="27"/>
-        <image name="library_select" width="32" height="27"/>
-        <image name="user" width="32" height="32"/>
-        <image name="user_select" width="32" height="32"/>
+        <image name="home" width="24" height="24"/>
+        <image name="home_select" width="24" height="24"/>
+        <image name="library" width="24" height="20"/>
+        <image name="library_select" width="24" height="20"/>
+        <image name="user" width="24" height="24"/>
+        <image name="user_select" width="24" height="24"/>
     </resources>
 </document>

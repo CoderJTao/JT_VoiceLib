@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import RxSwift
 
 class FindViewModel {
-
+    fileprivate init() {}
+    
 }
