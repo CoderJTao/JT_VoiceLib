@@ -22,7 +22,8 @@ class FindCardCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        containView.clipsToBounds = true
+        
+        containView.layer.masksToBounds = true
         containView.layer.cornerRadius = 8
         
         self.addPathShadow()
@@ -50,10 +51,10 @@ class FindCardCell: UICollectionViewCell {
         let path = UIBezierPath()
         
         // top left
-        path.move(to: CGPoint(x: -curvyness, y: -curvyness-2))
+        path.move(to: CGPoint(x: -curvyness, y: -curvyness))
         
         // top right
-        path.addLine(to: CGPoint(x:width + curvyness,y:-curvyness))
+        path.addLine(to: CGPoint(x:width + curvyness, y:-curvyness))
         
         // bottom right + a little extra
         path.addLine(to: CGPoint(x: width + curvyness, y: height + curvyness))
@@ -64,10 +65,10 @@ class FindCardCell: UICollectionViewCell {
         
         let layer = self.layer
         layer.shadowPath = path.cgPath
-        layer.shadowColor = UIColor.gray.cgColor
-        layer.shadowOpacity = 0.3
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.1
         layer.shadowRadius = 3
-        layer.shadowOffset = CGSize(width: 0, height: 3)
+        layer.shadowOffset = CGSize(width: 2, height: 2)
     }
 
 }

@@ -7,26 +7,10 @@
 		<key>JT_VoiceLib.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>12</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>6C5CB4161FB1694400949BFE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6C5CB42A1FB1694400949BFE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6C5CB4351FB1694400949BFE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>

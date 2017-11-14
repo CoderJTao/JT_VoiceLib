@@ -43,7 +43,6 @@ class FindViewController: UIViewController {
         layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsetsMake(30, 0, 20, 0)
         self.collectionView.collectionViewLayout = layout
-        
     }
 
     override func didReceiveMemoryWarning() {
