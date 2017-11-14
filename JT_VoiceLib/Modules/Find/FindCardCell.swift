@@ -10,6 +10,8 @@ import UIKit
 
 class FindCardCell: UICollectionViewCell {
     
+    var jsonModel : AlbumsJsonModel?
+    
     @IBOutlet weak var containView: UIView!
     @IBOutlet var showImg: UIImageView!
     
@@ -24,8 +26,13 @@ class FindCardCell: UICollectionViewCell {
         containView.layer.cornerRadius = 8
         
         self.addPathShadow()
+    }
+    
+    func setCell(model: AlbumsJsonModel) {
+        self.jsonModel = model
         
     }
+    
     
     /// 为cell加上阴影
     ///

@@ -7,8 +7,18 @@
 //
 
 import UIKit
-
+import RxSwift
 class FindViewModel {
-    fileprivate init() {}
+    
+    var albums = Variable<[AlbumsJsonModel]>([])
+    
+    init() {
+        
+
+    }
+    
+    func loadData() {
+        
+    }
     
 }

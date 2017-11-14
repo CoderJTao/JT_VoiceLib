@@ -28,6 +28,10 @@
 		6C5CB45B1FB1985800949BFE /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5CB45A1FB1985800949BFE /* FindViewController.swift */; };
 		6C5CB45D1FB1986400949BFE /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5CB45C1FB1986400949BFE /* LibraryViewController.swift */; };
 		6C5CB45F1FB1986F00949BFE /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5CB45E1FB1986F00949BFE /* MineViewController.swift */; };
+		6C81A1F91FBA98C100651D76 /* FindStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C81A1F81FBA98C100651D76 /* FindStoryBoard.storyboard */; };
+		6C81A1FB1FBA98F400651D76 /* FindNextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C81A1FA1FBA98F400651D76 /* FindNextViewController.swift */; };
+		6C81A1FD1FBA9ACC00651D76 /* FindNextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C81A1FC1FBA9ACC00651D76 /* FindNextCell.swift */; };
+		6C81A2001FBA9CD500651D76 /* AlbumsJsonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C81A1FF1FBA9CD500651D76 /* AlbumsJsonModel.swift */; };
 		812B361E808FD8E306FDE421 /* Pods_JT_VoiceLibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FD2BD3437DABE9DBF2FA7C /* Pods_JT_VoiceLibTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +83,10 @@
 		6C5CB45A1FB1985800949BFE /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
 		6C5CB45C1FB1986400949BFE /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		6C5CB45E1FB1986F00949BFE /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
+		6C81A1F81FBA98C100651D76 /* FindStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FindStoryBoard.storyboard; sourceTree = "<group>"; };
+		6C81A1FA1FBA98F400651D76 /* FindNextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindNextViewController.swift; sourceTree = "<group>"; };
+		6C81A1FC1FBA9ACC00651D76 /* FindNextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindNextCell.swift; sourceTree = "<group>"; };
+		6C81A1FF1FBA9CD500651D76 /* AlbumsJsonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsJsonModel.swift; sourceTree = "<group>"; };
 		7FF6931FADD524613247B6C7 /* Pods-JT_VoiceLibUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JT_VoiceLibUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JT_VoiceLibUITests/Pods-JT_VoiceLibUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C47240BB1BE78BD1DA928CF1 /* Pods-JT_VoiceLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JT_VoiceLibTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JT_VoiceLibTests/Pods-JT_VoiceLibTests.release.xcconfig"; sourceTree = "<group>"; };
 		E8EBBAD3D09E3DDA25C4D9F1 /* Pods-JT_VoiceLibUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JT_VoiceLibUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JT_VoiceLibUITests/Pods-JT_VoiceLibUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -224,10 +232,14 @@
 		6C5CB4571FB1984100949BFE /* Find */ = {
 			isa = PBXGroup;
 			children = (
+				6C81A1FE1FBA9CC500651D76 /* JsonModel */,
 				6C5CB45A1FB1985800949BFE /* FindViewController.swift */,
 				6C17421F1FB1A999003D995F /* FindViewModel.swift */,
 				6C4D591B1FB29942008BA50C /* FindCardCell.swift */,
 				6C4D591C1FB29942008BA50C /* FindCardCell.xib */,
+				6C81A1F81FBA98C100651D76 /* FindStoryBoard.storyboard */,
+				6C81A1FA1FBA98F400651D76 /* FindNextViewController.swift */,
+				6C81A1FC1FBA9ACC00651D76 /* FindNextCell.swift */,
 			);
 			path = Find;
 			sourceTree = "<group>";
@@ -248,6 +260,14 @@
 				6C1742231FB1A9B1003D995F /* MineViewModel.swift */,
 			);
 			path = Mine;
+			sourceTree = "<group>";
+		};
+		6C81A1FE1FBA9CC500651D76 /* JsonModel */ = {
+			isa = PBXGroup;
+			children = (
+				6C81A1FF1FBA9CD500651D76 /* AlbumsJsonModel.swift */,
+			);
+			path = JsonModel;
 			sourceTree = "<group>";
 		};
 		8068A4E7512729BD86688EAF /* Frameworks */ = {
@@ -390,6 +410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C4D591E1FB29942008BA50C /* FindCardCell.xib in Resources */,
+				6C81A1F91FBA98C100651D76 /* FindStoryBoard.storyboard in Resources */,
 				6C5CB4251FB1694400949BFE /* LaunchScreen.storyboard in Resources */,
 				6C5CB4221FB1694400949BFE /* Assets.xcassets in Resources */,
 				6C5CB4201FB1694400949BFE /* Main.storyboard in Resources */,
@@ -487,21 +508,25 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-JT_VoiceLib/Pods-JT_VoiceLib-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -591,7 +616,10 @@
 				6C5CB45B1FB1985800949BFE /* FindViewController.swift in Sources */,
 				6C1742201FB1A999003D995F /* FindViewModel.swift in Sources */,
 				6C1742221FB1A9A7003D995F /* LibraryViewModel.swift in Sources */,
+				6C81A1FB1FBA98F400651D76 /* FindNextViewController.swift in Sources */,
+				6C81A1FD1FBA9ACC00651D76 /* FindNextCell.swift in Sources */,
 				6C5CB45F1FB1986F00949BFE /* MineViewController.swift in Sources */,
+				6C81A2001FBA9CD500651D76 /* AlbumsJsonModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,6 +791,27 @@
 				INFOPLIST_FILE = JT_VoiceLib/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"Differentiator\"",
+					"-framework",
+					"\"Hero\"",
+					"-framework",
+					"\"Moya\"",
+					"-framework",
+					"\"ReactiveSwift\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"RxCocoa\"",
+					"-framework",
+					"\"RxDataSources\"",
+					"-framework",
+					"\"RxSwift\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.taoJiang.JT-VoiceLib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -780,6 +829,27 @@
 				INFOPLIST_FILE = JT_VoiceLib/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"Differentiator\"",
+					"-framework",
+					"\"Hero\"",
+					"-framework",
+					"\"Moya\"",
+					"-framework",
+					"\"ReactiveSwift\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"RxCocoa\"",
+					"-framework",
+					"\"RxDataSources\"",
+					"-framework",
+					"\"RxSwift\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.taoJiang.JT-VoiceLib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
