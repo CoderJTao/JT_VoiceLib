@@ -19,6 +19,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="yFm-8E-jqx" kind="relationship" relationship="viewControllers" id="3V2-VD-b1d"/>
                         <segue destination="EW9-2S-3jk" kind="relationship" relationship="viewControllers" id="pu7-c8-rnG"/>
@@ -57,6 +60,9 @@
                             <constraint firstItem="gv4-cp-nO4" firstAttribute="bottom" secondItem="rN2-NR-UjA" secondAttribute="bottom" id="efH-p1-cMH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gv4-cp-nO4"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="aaaa"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <navigationItem key="navigationItem" title="发现" id="Sqw-aa-iev"/>
                     <connections>
@@ -76,6 +82,9 @@
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="Rkx-lj-IuX" kind="relationship" relationship="rootViewController" id="W63-qf-edj"/>
                     </connections>

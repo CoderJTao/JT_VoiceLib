@@ -10,18 +10,15 @@ import UIKit
 
 class FindCardCell: UICollectionViewCell {
     
-    var jsonModel : AlbumsJsonModel?
+    var jsonModel : GatherJsonModel?
     
     @IBOutlet weak var containView: UIView!
     @IBOutlet var showImg: UIImageView!
     
     @IBOutlet var titleLbl: UILabel!
-    
-    @IBOutlet var descLbl: UILabel!
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         
         containView.layer.masksToBounds = true
         containView.layer.cornerRadius = 8
@@ -29,9 +26,10 @@ class FindCardCell: UICollectionViewCell {
         self.addPathShadow()
     }
     
-    func setCell(model: AlbumsJsonModel) {
+    func setCell(model: GatherJsonModel) {
         self.jsonModel = model
         
+        self.showImg.heroID = "AlbumShowImage"+"\(model.anInt)"
     }
     
     

@@ -15,36 +15,64 @@ class FindViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var dataSource : RxCollectionViewSectionedReloadDataSource<SectionOfGather>!
+    
     let disposeBag = DisposeBag()
     let viewModel = FindViewModel()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.showTabbar()
+        self.showNavigationBar()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.hideNavigationBarHairLine()
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
+        setUpCollectionView()
+        
+        self.viewModel.loadData()
+    }
+    
+    private func setUpCollectionView() {
         self.collectionView.register(UINib(nibName: "FindCardCell", bundle: nil), forCellWithReuseIdentifier: "CardCell")
         
-        let sections = [
-            SectionOfAlbums(header: "First section", items: [AlbumsJsonModel(anInt: 0, aString: "zero", aCGPoint: CGPoint.zero), AlbumsJsonModel(anInt: 1, aString: "one", aCGPoint: CGPoint(x: 1, y: 1)), AlbumsJsonModel(anInt: 2, aString: "two", aCGPoint: CGPoint(x: 2, y: 2)), AlbumsJsonModel(anInt: 3, aString: "three", aCGPoint: CGPoint(x: 3, y: 3)) ])
-        ]
-        
         let (configureCollectionViewCell, configureSupplementaryView) =  FindViewController.collectionViewDataSourceUI()
-        let dataSource = RxCollectionViewSectionedReloadDataSource(configureCell: configureCollectionViewCell, configureSupplementaryView: configureSupplementaryView)
+        let dataSourceT = RxCollectionViewSectionedReloadDataSource(configureCell: configureCollectionViewCell, configureSupplementaryView: configureSupplementaryView)
+        self.dataSource = dataSourceT
         
-        Observable.just(sections)
-            .bind(to: collectionView.rx.items(dataSource: dataSource))
+        self.viewModel.gatherAlbums.asObservable()
+            .bind(to: collectionView.rx.items(dataSource: self.dataSource))
             .disposed(by: disposeBag)
         
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: kScreenW*0.8, height: kScreenW*0.8*1.5)
+        layout.itemSize = CGSize(width: kScreenW*0.85, height: kScreenW*0.8*1.33)
         layout.minimumLineSpacing = 20
         layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsetsMake(30, 0, 20, 0)
         self.collectionView.collectionViewLayout = layout
+        
+        self.collectionView.rx.itemSelected
+            .subscribe(onNext: { [weak self] index in
+                let cell = self?.collectionView.cellForItem(at: index) as! FindCardCell
+                self?.itemSelected(model: cell.jsonModel!)
+            })
+            .disposed(by: disposeBag)
     }
-
+    
+    private func itemSelected(model:GatherJsonModel) {
+        let storyboard = UIStoryboard(name: "FindStoryBoard", bundle: Bundle.main)
+        if let controller = storyboard.instantiateViewController(withIdentifier: "FindNextViewController") as? FindNextViewController {
+            controller.imageHeroId = "AlbumShowImage"+"\(model.anInt)"
+//            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(controller, animated: true)
+//            }
+        }
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -57,13 +85,14 @@ extension FindViewController {
     
     
     static func collectionViewDataSourceUI() -> (
-        CollectionViewSectionedDataSource<SectionOfAlbums>.ConfigureCell,
-        CollectionViewSectionedDataSource<SectionOfAlbums>.ConfigureSupplementaryView
+        CollectionViewSectionedDataSource<SectionOfGather>.ConfigureCell,
+        CollectionViewSectionedDataSource<SectionOfGather>.ConfigureSupplementaryView
         ) {
             return (
                 { (_, cv, ip, i) in
                     let cell = cv.dequeueReusableCell(withReuseIdentifier: "CardCell", for: ip) as! FindCardCell
-                    cell.titleLbl.text = "\(i)"
+                    cell.titleLbl.text = "\(i.aString)"
+                    cell.setCell(model: i)
                     return cell
                     
             },

@@ -28,6 +28,8 @@
 		6C5CB45B1FB1985800949BFE /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5CB45A1FB1985800949BFE /* FindViewController.swift */; };
 		6C5CB45D1FB1986400949BFE /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5CB45C1FB1986400949BFE /* LibraryViewController.swift */; };
 		6C5CB45F1FB1986F00949BFE /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5CB45E1FB1986F00949BFE /* MineViewController.swift */; };
+		6C69370D1FBC0EF30025F9A7 /* FindNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C69370C1FBC0EF30025F9A7 /* FindNextViewModel.swift */; };
+		6C69370F1FBC1DBC0025F9A7 /* AlbumDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C69370E1FBC1DBC0025F9A7 /* AlbumDetailViewController.swift */; };
 		6C81A1F91FBA98C100651D76 /* FindStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C81A1F81FBA98C100651D76 /* FindStoryBoard.storyboard */; };
 		6C81A1FB1FBA98F400651D76 /* FindNextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C81A1FA1FBA98F400651D76 /* FindNextViewController.swift */; };
 		6C81A1FD1FBA9ACC00651D76 /* FindNextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C81A1FC1FBA9ACC00651D76 /* FindNextCell.swift */; };
@@ -84,6 +86,8 @@
 		6C5CB45A1FB1985800949BFE /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
 		6C5CB45C1FB1986400949BFE /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		6C5CB45E1FB1986F00949BFE /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
+		6C69370C1FBC0EF30025F9A7 /* FindNextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindNextViewModel.swift; sourceTree = "<group>"; };
+		6C69370E1FBC1DBC0025F9A7 /* AlbumDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailViewController.swift; sourceTree = "<group>"; };
 		6C81A1F81FBA98C100651D76 /* FindStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FindStoryBoard.storyboard; sourceTree = "<group>"; };
 		6C81A1FA1FBA98F400651D76 /* FindNextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindNextViewController.swift; sourceTree = "<group>"; };
 		6C81A1FC1FBA9ACC00651D76 /* FindNextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindNextCell.swift; sourceTree = "<group>"; };
@@ -234,7 +238,9 @@
 				6C4D591C1FB29942008BA50C /* FindCardCell.xib */,
 				6C81A1F81FBA98C100651D76 /* FindStoryBoard.storyboard */,
 				6C81A1FA1FBA98F400651D76 /* FindNextViewController.swift */,
+				6C69370C1FBC0EF30025F9A7 /* FindNextViewModel.swift */,
 				6C81A1FC1FBA9ACC00651D76 /* FindNextCell.swift */,
+				6C69370E1FBC1DBC0025F9A7 /* AlbumDetailViewController.swift */,
 			);
 			path = Find;
 			sourceTree = "<group>";
@@ -623,9 +629,11 @@
 				6C4D591A1FB296E0008BA50C /* UIView+frame.swift in Sources */,
 				6C4D591D1FB29942008BA50C /* FindCardCell.swift in Sources */,
 				6C1742241FB1A9B1003D995F /* MineViewModel.swift in Sources */,
+				6C69370D1FBC0EF30025F9A7 /* FindNextViewModel.swift in Sources */,
 				6C4D59141FB29678008BA50C /* Common.swift in Sources */,
 				6C4D59191FB296E0008BA50C /* UIColor+category.swift in Sources */,
 				6C5CB45B1FB1985800949BFE /* FindViewController.swift in Sources */,
+				6C69370F1FBC1DBC0025F9A7 /* AlbumDetailViewController.swift in Sources */,
 				6C1742201FB1A999003D995F /* FindViewModel.swift in Sources */,
 				6C1742221FB1A9A7003D995F /* LibraryViewModel.swift in Sources */,
 				6C81A1FB1FBA98F400651D76 /* FindNextViewController.swift in Sources */,

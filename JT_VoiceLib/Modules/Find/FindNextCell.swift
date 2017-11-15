@@ -10,6 +10,8 @@ import UIKit
 
 class FindNextCell: UICollectionViewCell {
     
+    var jsonModel : AlbumsJsonModel?
+    
     @IBOutlet weak var showImg: UIImageView!
     
     @IBOutlet weak var showTitle: UILabel!
@@ -18,7 +20,10 @@ class FindNextCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        
     }
     
+    func setCell(model: AlbumsJsonModel) {
+        self.jsonModel = model
+        self.showImg.heroID = "DetailBg"+"\(model.anInt)"
+    }
 }

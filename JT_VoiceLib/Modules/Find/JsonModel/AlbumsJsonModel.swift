@@ -11,6 +11,29 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+// MARK: - 发现首页的jsonmodel
+struct GatherJsonModel {
+    var anInt: Int
+    var aString: String
+    var aCGPoint: CGPoint
+}
+
+struct SectionOfGather {
+    var header: String
+    var items: [GatherJsonModel]
+}
+extension SectionOfGather: SectionModelType {
+    typealias Item = GatherJsonModel
+    
+    init(original: SectionOfGather, items: [GatherJsonModel]) {
+        self = original
+        self.items = items
+    }
+}
+
+
+
+// MARK: - 首页点击进入Albums
 struct AlbumsJsonModel {
     var anInt: Int
     var aString: String

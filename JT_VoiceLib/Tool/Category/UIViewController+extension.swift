@@ -16,6 +16,24 @@ extension UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
+    // MARK: - hide navigation bar
+    func hideNavigationBar() {
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    // MARK: - show navigation bar
+    func showNavigationBar() {
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
+    // MARK: - hide tabbar
+    func hideTabbar() {
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    // MARK: - show tabbar
+    func showTabbar() {
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
     // MARK: - show custom navigation back button
     func showNavigationBackButton() {
         self.navigationItem.hidesBackButton = true
