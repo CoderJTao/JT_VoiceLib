@@ -13,6 +13,8 @@ import RxDataSources
 
 class FindViewModel {
     
+    let disposeBag = DisposeBag()
+    
     var gatherAlbums = Variable([SectionOfGather]())
     
     init() {
@@ -28,6 +30,13 @@ class FindViewModel {
         ]
         
         self.gatherAlbums.value = sections
+        
+        NetWorkService.sharedInstance.getGather(pageNum: "1")
+            .subscribe(onNext: { (gather) in
+                print(gather)
+            }, onError: { (error) in
+                
+            }).disposed(by: disposeBag)
         
     }
     

@@ -16,10 +16,7 @@ import Hero
 let kScreenW : CGFloat = UIScreen.main.bounds.width
 let kScreenH : CGFloat = UIScreen.main.bounds.height
 
-let kStatusH : CGFloat = 20
-let kNavGationH : CGFloat = 44
-
-let kAPIBaseURLString : NSString = "http://app.9nali.com/"
+let kAPIBaseURLString : String = "http://app.9nali.com/"
 
 //导航栏颜色
 let NavBarBgColor = UIColor(r: 212, g: 59, b: 51, a: 1)
