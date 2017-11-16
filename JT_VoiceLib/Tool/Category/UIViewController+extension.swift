@@ -38,12 +38,21 @@ extension UIViewController {
     func showNavigationBackButton() {
         self.navigationItem.hidesBackButton = true
         
-//        let item = UIBarButtonItem(image: UIImage(named: "Back"), style: .plain, target: self, action: #selector(onNavigationBackPressed(_:)))
-//        self.navigationItem.leftBarButtonItem = item
-//        item.accessibilityIdentifier = "Navigation_UIBarButtonItem_back"
+        let item = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(onNavigationBackPressed(_:)))
+        self.navigationItem.leftBarButtonItem = item
     }
     
     @objc func onNavigationBackPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    // MARK: - show custom navigation library button
+    func showNavigationLibraryButton() {
+        let item = UIBarButtonItem(title: "音库", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onNavigationLibraryPressed(_:)))
+        self.navigationItem.rightBarButtonItem = item
+    }
+    
+    @objc func onNavigationLibraryPressed(_ sender: Any) {
+        let vc = LibraryViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

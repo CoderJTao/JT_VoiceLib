@@ -26,15 +26,13 @@ class FindNextViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel = FindNextViewModel()
     
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.showImg.heroID = self.imageHeroId
         self.hideTabbar()
-        self.hideNavigationBar()
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.showNavigationBackButton()
+        self.showNavigationLibraryButton()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -71,7 +69,6 @@ class FindNextViewController: UIViewController {
     private func itemSelected(model:AlbumsJsonModel) {
         let storyboard = UIStoryboard(name: "FindStoryBoard", bundle: Bundle.main)
         if let controller = storyboard.instantiateViewController(withIdentifier: "AlbumDetailViewController") as? AlbumDetailViewController {
-            controller.imageHeroId = "DetailBg"+"\(model.anInt)"
             
             self.navigationController?.pushViewController(controller, animated: true)
         }

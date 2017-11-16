@@ -52,3 +52,22 @@ extension SectionOfAlbums: SectionModelType {
         self.items = items
     }
 }
+
+// MARK: - 专辑点击进入专辑列表
+struct TracksJsonModel {
+    var anInt: Int
+    var aString: String
+    var aCGPoint: CGPoint
+}
+struct SectionOfTracks {
+    var header: String
+    var items: [TracksJsonModel]
+}
+extension SectionOfTracks: SectionModelType {
+    typealias Item = TracksJsonModel
+    
+    init(original: SectionOfTracks, items: [TracksJsonModel]) {
+        self = original
+        self.items = items
+    }
+}

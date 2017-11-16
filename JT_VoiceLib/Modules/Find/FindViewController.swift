@@ -24,17 +24,17 @@ class FindViewController: UIViewController {
         super.viewWillAppear(animated)
         self.showTabbar()
         self.showNavigationBar()
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideNavigationBarHairLine()
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        
         setUpCollectionView()
-        
+        self.showNavigationLibraryButton()
         self.viewModel.loadData()
     }
+
     
     private func setUpCollectionView() {
         self.collectionView.register(UINib(nibName: "FindCardCell", bundle: nil), forCellWithReuseIdentifier: "CardCell")

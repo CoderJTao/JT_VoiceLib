@@ -7,51 +7,66 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxDataSources
 
 class AlbumDetailViewController: UIViewController {
-
-    var imageHeroId : String?
     
-    @IBOutlet weak var bgImageView: UIImageView!
-    @IBOutlet weak var containView: UIView!
+    @IBOutlet weak var tableView: UITableView!
     
-    override var prefersStatusBarHidden: Bool {
-        return true
+    var dataSource : RxTableViewSectionedReloadDataSource<SectionOfTracks>!
+    
+    let disposeBag = DisposeBag()
+    let viewModel = AlbumDetailViewModel()
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.bgImageView.heroID = self.imageHeroId
+        self.showNavigationBackButton()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.containView.isHidden = false
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpTableView()
+     
         
-        addBlurEffect()
+        self.viewModel.loadData()
     }
-
     
-    // MARK: - 添加毛玻璃
-    func addBlurEffect() {
-        //  创建显示图片
-        /**  毛玻璃特效类型
-         *  UIBlurEffectStyleExtraLight,
-         *  UIBlurEffectStyleLight,
-         *  UIBlurEffectStyleDark
-         */
-        let blurEffect = UIBlurEffect(style: .light)
+    
+    // MARK: - 设置tableView
+    func setUpTableView() {
+        self.title = "专辑列表"
+        tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentBehavior.never
+        self.dataSource = AlbumDetailViewController.getDataSource()
         
-        //  毛玻璃视图
-        let effectView = UIVisualEffectView.init(effect: blurEffect)
+        self.viewModel.tracks.asObservable()
+            .bind(to: tableView.rx.items(dataSource: self.dataSource))
+            .disposed(by: disposeBag)
         
-        //添加到要有毛玻璃特效的控件中
-        effectView.frame = UIScreen.main.bounds;
-        bgImageView.addSubview(effectView)
+        self.tableView.rx.setDelegate(self).disposed(by: self.disposeBag)
         
-        //设置模糊透明度
-        effectView.alpha = 1
+        self.tableView.rx.itemSelected
+            .subscribe(onNext: { [unowned self] index in
+                if index.row > 0 {
+                    let cell = self.tableView.cellForRow(at: index) as! AlbumDetailCell
+                    self.itemSelected(model: cell.jsonModel!)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func itemSelected(model:TracksJsonModel) {
+//        let storyboard = UIStoryboard(name: "FindStoryBoard", bundle: Bundle.main)
+//        if let controller = storyboard.instantiateViewController(withIdentifier: "AlbumDetailViewController") as? AlbumDetailViewController {
+//
+//            self.navigationController?.pushViewController(controller, animated: true)
+//        }
     }
     
     @IBAction func backClick(_ sender: UIButton) {
@@ -63,4 +78,38 @@ class AlbumDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+extension AlbumDetailViewController: UITableViewDelegate, UIScrollViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 260
+        } else {
+            return 80
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+}
+
+extension AlbumDetailViewController {
+    
+    
+    static func getDataSource() -> RxTableViewSectionedReloadDataSource<SectionOfTracks> {
+        return RxTableViewSectionedReloadDataSource<SectionOfTracks>(
+            configureCell: { (dataSource, table, idxPath, _) in
+                if idxPath.row == 0 {
+                    let cell = table.dequeueReusableCell(withIdentifier: "AlbumDetailTopCell", for: idxPath)
+                    return cell
+                } else {
+                    let cell = table.dequeueReusableCell(withIdentifier: "AlbumDetailCell", for: idxPath)
+                    return cell
+                }
+        }
+        )
+    }
 }
