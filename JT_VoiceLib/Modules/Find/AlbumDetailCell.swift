@@ -16,7 +16,11 @@ class AlbumDetailCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
+    func setCell(model: TracksJsonModel) {
+        self.jsonModel = model
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

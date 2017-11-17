@@ -26,6 +26,14 @@ class FindViewController: UIViewController {
         self.showNavigationBar()
         self.navigationController?.navigationBar.prefersLargeTitles = true
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.showTabbar()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.hideTabbar()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +41,8 @@ class FindViewController: UIViewController {
         setUpCollectionView()
         self.showNavigationLibraryButton()
         self.viewModel.loadData()
+        
+        
     }
 
     
@@ -66,9 +76,7 @@ class FindViewController: UIViewController {
         let storyboard = UIStoryboard(name: "FindStoryBoard", bundle: Bundle.main)
         if let controller = storyboard.instantiateViewController(withIdentifier: "FindNextViewController") as? FindNextViewController {
             controller.imageHeroId = "AlbumShowImage"+"\(model.anInt)"
-//            DispatchQueue.main.async {
-                self.navigationController?.pushViewController(controller, animated: true)
-//            }
+            self.navigationController?.pushViewController(controller, animated: true)
         }
     }
     

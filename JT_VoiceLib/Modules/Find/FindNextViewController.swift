@@ -29,10 +29,8 @@ class FindNextViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.showImg.heroID = self.imageHeroId
-        self.hideTabbar()
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.showNavigationBackButton()
-        self.showNavigationLibraryButton()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -67,6 +65,7 @@ class FindNextViewController: UIViewController {
     }
     
     private func itemSelected(model:AlbumsJsonModel) {
+        
         let storyboard = UIStoryboard(name: "FindStoryBoard", bundle: Bundle.main)
         if let controller = storyboard.instantiateViewController(withIdentifier: "AlbumDetailViewController") as? AlbumDetailViewController {
             

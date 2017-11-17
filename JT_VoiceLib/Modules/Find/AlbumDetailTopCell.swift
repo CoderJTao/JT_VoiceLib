@@ -33,6 +33,7 @@ class AlbumDetailTopCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
     // MARK: - 进入简介
     @IBAction func goToDetailClick(_ sender: Any) {
     }

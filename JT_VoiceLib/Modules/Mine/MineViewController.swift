@@ -10,10 +10,23 @@ import UIKit
 
 class MineViewController: UIViewController {
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.showTabbar()
+        self.showNavigationBar()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.showTabbar()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.hideTabbar()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.hideNavigationBarHairLine()
     }
 
     override func didReceiveMemoryWarning() {

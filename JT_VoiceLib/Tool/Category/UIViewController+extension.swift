@@ -45,6 +45,7 @@ extension UIViewController {
     @objc func onNavigationBackPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
     // MARK: - show custom navigation library button
     func showNavigationLibraryButton() {
         let item = UIBarButtonItem(title: "音库", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onNavigationLibraryPressed(_:)))
@@ -52,7 +53,23 @@ extension UIViewController {
     }
     
     @objc func onNavigationLibraryPressed(_ sender: Any) {
-        let vc = LibraryViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        let storyboard = UIStoryboard(name: "Library", bundle: Bundle.main)
+        if let controller = storyboard.instantiateViewController(withIdentifier: "LibraryViewController") as? LibraryViewController {
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
+    
+    // MARK: - show custom navigation search button
+    func showNavigationSearchButton() {
+        let item = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(onNavigationSearchPressed(_:)))
+        self.navigationItem.rightBarButtonItem = item
+    }
+    
+    @objc func onNavigationSearchPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Search", bundle: Bundle.main)
+        if let controller = storyboard.instantiateViewController(withIdentifier: "SearchViewController") as? SearchViewController {
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
 }

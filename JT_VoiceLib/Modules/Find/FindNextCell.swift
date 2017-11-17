@@ -24,6 +24,6 @@ class FindNextCell: UICollectionViewCell {
     
     func setCell(model: AlbumsJsonModel) {
         self.jsonModel = model
-        self.showImg.heroID = "DetailBg"+"\(model.anInt)"
+        
     }
 }

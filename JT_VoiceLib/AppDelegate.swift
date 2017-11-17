@@ -12,16 +12,48 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
+    static let playBtn = UIButton(frame: CGRect(x: kScreenW-45, y: kScreenH-100, width: 40, height: 40))
+    
+    static let sharedInstance = AppDelegate()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        setUpPlayBtn()
+        
         let bar = UITabBar.appearance()
         bar.barTintColor = UIColor.white
         
         return true
     }
-
+    
+    // MARK: - 设置悬浮按钮
+    func setUpPlayBtn() {
+        AppDelegate.playBtn.setImage(UIImage(named: "音符"), for: .normal)
+        
+        AppDelegate.playBtn.addTarget(self, action: #selector(playBtnClick(_:)), for: .touchUpInside)
+        
+        self.window?.rootViewController?.view.addSubview(AppDelegate.playBtn)
+        self.window?.rootViewController?.view.bringSubview(toFront: AppDelegate.playBtn)
+    }
+    func hidePlayBtn() {
+        AppDelegate.playBtn.isHidden = true
+    }
+    func showPlayBtn() {
+        AppDelegate.playBtn.isHidden = false
+    }
+    
+    @objc func playBtnClick(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Play", bundle: Bundle.main)
+        if let pushController = storyboard.instantiateViewController(withIdentifier: "PlayViewController") as? PlayViewController {
+            let tab = self.window?.rootViewController as? UITabBarController
+            let nav = tab?.viewControllers![(tab?.selectedIndex)!] as? UINavigationController
+            nav?.pushViewController(pushController, animated: true)
+        }
+    }
+    
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

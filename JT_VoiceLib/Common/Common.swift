@@ -23,4 +23,5 @@ let NavBarBgColor = UIColor(r: 212, g: 59, b: 51, a: 1)
 //底部tabbar颜色
 let TabBarBgColor = UIColor(r: 35, g: 35, b: 35, a: 0.8)
 
-
+//cell选中颜色
+let CellSelctedBackGroundColor = UIColor(r: 243, g: 243, b: 243, a: 1)

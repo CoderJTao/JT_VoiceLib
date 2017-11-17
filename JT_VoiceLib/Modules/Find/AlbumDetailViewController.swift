@@ -62,11 +62,11 @@ class AlbumDetailViewController: UIViewController {
     }
     
     private func itemSelected(model:TracksJsonModel) {
-//        let storyboard = UIStoryboard(name: "FindStoryBoard", bundle: Bundle.main)
-//        if let controller = storyboard.instantiateViewController(withIdentifier: "AlbumDetailViewController") as? AlbumDetailViewController {
-//
-//            self.navigationController?.pushViewController(controller, animated: true)
-//        }
+        let storyboard = UIStoryboard(name: "Play", bundle: Bundle.main)
+        if let controller = storyboard.instantiateViewController(withIdentifier: "PlayViewController") as? PlayViewController {
+            controller.title = model.aString
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
     
     @IBAction func backClick(_ sender: UIButton) {
@@ -101,12 +101,13 @@ extension AlbumDetailViewController {
     
     static func getDataSource() -> RxTableViewSectionedReloadDataSource<SectionOfTracks> {
         return RxTableViewSectionedReloadDataSource<SectionOfTracks>(
-            configureCell: { (dataSource, table, idxPath, _) in
+            configureCell: { (dataSource, table, idxPath, model) in
                 if idxPath.row == 0 {
-                    let cell = table.dequeueReusableCell(withIdentifier: "AlbumDetailTopCell", for: idxPath)
+                    let cell = table.dequeueReusableCell(withIdentifier: "AlbumDetailTopCell", for: idxPath) as! AlbumDetailTopCell
                     return cell
                 } else {
-                    let cell = table.dequeueReusableCell(withIdentifier: "AlbumDetailCell", for: idxPath)
+                    let cell = table.dequeueReusableCell(withIdentifier: "AlbumDetailCell", for: idxPath) as! AlbumDetailCell
+                    cell.setCell(model: model)
                     return cell
                 }
         }
