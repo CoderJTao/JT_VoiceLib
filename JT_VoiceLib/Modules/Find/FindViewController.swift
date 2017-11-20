@@ -15,7 +15,9 @@ class FindViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var dataSource : RxCollectionViewSectionedReloadDataSource<SectionOfGather>!
+    var refreshControl : UIRefreshControl?
+    
+    var pageNum : Int = 1
     
     let disposeBag = DisposeBag()
     let viewModel = FindViewModel()
@@ -34,48 +36,35 @@ class FindViewController: UIViewController {
         super.viewWillDisappear(animated)
         self.hideTabbar()
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideNavigationBarHairLine()
-        setUpCollectionView()
         self.showNavigationLibraryButton()
-        self.viewModel.loadData()
         
+        //初始化数据
+        self.viewModel.loadData(pageNum, true)
+        
+        setUpCollectionView()
         
     }
-
     
-    private func setUpCollectionView() {
-        self.collectionView.register(UINib(nibName: "FindCardCell", bundle: nil), forCellWithReuseIdentifier: "CardCell")
-        
-        let (configureCollectionViewCell, configureSupplementaryView) =  FindViewController.collectionViewDataSourceUI()
-        let dataSourceT = RxCollectionViewSectionedReloadDataSource(configureCell: configureCollectionViewCell, configureSupplementaryView: configureSupplementaryView)
-        self.dataSource = dataSourceT
-        
-        self.viewModel.gatherAlbums.asObservable()
-            .bind(to: collectionView.rx.items(dataSource: self.dataSource))
-            .disposed(by: disposeBag)
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: kScreenW*0.85, height: kScreenW*0.8*1.33)
-        layout.minimumLineSpacing = 20
-        layout.minimumInteritemSpacing = 20
-        layout.sectionInset = UIEdgeInsetsMake(30, 0, 20, 0)
-        self.collectionView.collectionViewLayout = layout
-        
-        self.collectionView.rx.itemSelected
-            .subscribe(onNext: { [weak self] index in
-                let cell = self?.collectionView.cellForItem(at: index) as! FindCardCell
-                self?.itemSelected(model: cell.jsonModel!)
-            })
-            .disposed(by: disposeBag)
+    // refresh data
+    @objc func refreshData() {
+        self.viewModel.loadData(1, true)
     }
     
+    // loadMore data
+    func loadMoreData() {
+        pageNum += 1
+        self.viewModel.loadData(pageNum, false)
+    }
+    
+    
+    // MARK: -  cell selected
     private func itemSelected(model:GatherJsonModel) {
         let storyboard = UIStoryboard(name: "FindStoryBoard", bundle: Bundle.main)
         if let controller = storyboard.instantiateViewController(withIdentifier: "FindNextViewController") as? FindNextViewController {
-            controller.imageHeroId = "AlbumShowImage"+"\(model.anInt)"
+            controller.imageHeroId = "AlbumShowImage+\(String(describing: model.uid))"
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
@@ -88,28 +77,49 @@ class FindViewController: UIViewController {
     
 
 }
+
+// MARK: -  setUp UI element
 extension FindViewController {
     
-    
-    
-    static func collectionViewDataSourceUI() -> (
-        CollectionViewSectionedDataSource<SectionOfGather>.ConfigureCell,
-        CollectionViewSectionedDataSource<SectionOfGather>.ConfigureSupplementaryView
-        ) {
-            return (
-                { (_, cv, ip, i) in
-                    let cell = cv.dequeueReusableCell(withReuseIdentifier: "CardCell", for: ip) as! FindCardCell
-                    cell.titleLbl.text = "\(i.aString)"
-                    cell.setCell(model: i)
-                    return cell
-                    
-            },
-                { (ds ,cv, kind, ip) in
-                    let section = UICollectionReusableView()
-                    return section
-            }
-            )
+    private func setUpCollectionView() {
+        self.collectionView.register(UINib(nibName: "FindCardCell", bundle: nil), forCellWithReuseIdentifier: "CardCell")
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: kScreenW*0.85, height: kScreenW*0.8*1.33)
+        layout.minimumLineSpacing = 20
+        layout.minimumInteritemSpacing = 20
+        layout.sectionInset = UIEdgeInsetsMake(30, 0, 20, 0)
+        self.collectionView.collectionViewLayout = layout
+        
+        // 设置代理  监测滑动   上拉加载更多数据
+        self.collectionView.rx.setDelegate(self).disposed(by: self.disposeBag)
+        
+        self.viewModel.gathers.asObservable().observeOn(MainScheduler.instance)
+            .bind(to: self.collectionView.rx.items(cellIdentifier: "CardCell", cellType: FindCardCell.self)) { (index: Int, model: GatherJsonModel, cell: FindCardCell) in
+                cell.setCell(model: model)
+            }.disposed(by: self.disposeBag)
+        
+        self.collectionView.rx.itemSelected
+            .subscribe(onNext: { [weak self] index in
+                let cell = self?.collectionView.cellForItem(at: index) as! FindCardCell
+                self?.itemSelected(model: cell.jsonModel!)
+            })
+            .disposed(by: disposeBag)
     }
+    
+    private func setRefreshControl () {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        self.collectionView.addSubview(self.refreshControl!)
+    }
+}
 
-
+extension FindViewController : UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if collectionView.contentSize.height < collectionView.height { return }
+        if scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height+60 {
+            self.loadMoreData()
+        }
+    }
 }

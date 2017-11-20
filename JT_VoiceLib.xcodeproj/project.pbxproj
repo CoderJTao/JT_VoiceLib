@@ -28,6 +28,7 @@
 		6C5CB45B1FB1985800949BFE /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5CB45A1FB1985800949BFE /* FindViewController.swift */; };
 		6C5CB45D1FB1986400949BFE /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5CB45C1FB1986400949BFE /* LibraryViewController.swift */; };
 		6C5CB45F1FB1986F00949BFE /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5CB45E1FB1986F00949BFE /* MineViewController.swift */; };
+		6C6720311FC271F30046AB96 /* JsonSerializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6720301FC271F30046AB96 /* JsonSerializationError.swift */; };
 		6C69370D1FBC0EF30025F9A7 /* FindNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C69370C1FBC0EF30025F9A7 /* FindNextViewModel.swift */; };
 		6C69370F1FBC1DBC0025F9A7 /* AlbumDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C69370E1FBC1DBC0025F9A7 /* AlbumDetailViewController.swift */; };
 		6C6D71221FBD3BC800511C00 /* AlbumDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6D71211FBD3BC800511C00 /* AlbumDetailViewModel.swift */; };
@@ -99,6 +100,7 @@
 		6C5CB45A1FB1985800949BFE /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
 		6C5CB45C1FB1986400949BFE /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		6C5CB45E1FB1986F00949BFE /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
+		6C6720301FC271F30046AB96 /* JsonSerializationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSerializationError.swift; sourceTree = "<group>"; };
 		6C69370C1FBC0EF30025F9A7 /* FindNextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindNextViewModel.swift; sourceTree = "<group>"; };
 		6C69370E1FBC1DBC0025F9A7 /* AlbumDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailViewController.swift; sourceTree = "<group>"; };
 		6C6D71211FBD3BC800511C00 /* AlbumDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailViewModel.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				6CB964561FBB2E21000CF95D /* AlbumsManager.swift */,
+				6C6720301FC271F30046AB96 /* JsonSerializationError.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -584,7 +587,9 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-JT_VoiceLib/Pods-JT_VoiceLib-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
+				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -596,7 +601,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -704,6 +711,7 @@
 				6C81A1FB1FBA98F400651D76 /* FindNextViewController.swift in Sources */,
 				6C81A1FD1FBA9ACC00651D76 /* FindNextCell.swift in Sources */,
 				6C6D71241FBD3C8A00511C00 /* AlbumDetailTopCell.swift in Sources */,
+				6C6720311FC271F30046AB96 /* JsonSerializationError.swift in Sources */,
 				6C5CB45F1FB1986F00949BFE /* MineViewController.swift in Sources */,
 				6C77F0611FBE888D00A0B182 /* LibraryLeftCell.swift in Sources */,
 				6C81A2001FBA9CD500651D76 /* AlbumsJsonModel.swift in Sources */,

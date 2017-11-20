@@ -12,6 +12,8 @@ target 'JT_VoiceLib' do
 	pod 'RxCocoa', '~> 4.0.0'
 	pod 'Hero', '~> 1.0'
 	pod 'RxDataSources'
+	pod 'HandyJSON', '~> 4.0.0-beta.1'
+	pod 'Kingfisher'
   target 'JT_VoiceLibTests' do
     inherit! :search_paths
     # Pods for testing

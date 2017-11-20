@@ -10,27 +10,44 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
+import HandyJSON
 
 // MARK: - 发现首页的jsonmodel
-struct GatherJsonModel {
-    var anInt: Int
-    var aString: String
-    var aCGPoint: CGPoint
-}
-
-struct SectionOfGather {
-    var header: String
-    var items: [GatherJsonModel]
-}
-extension SectionOfGather: SectionModelType {
-    typealias Item = GatherJsonModel
+struct GatherJsonModel : HandyJSON{
     
-    init(original: SectionOfGather, items: [GatherJsonModel]) {
-        self = original
-        self.items = items
-    }
+    var anInt: Int?
+    var aString: String?
+    var aCGPoint: CGPoint?
+
+//    uid: 1021189,
+//    nickname: "女王乔安",
+//    mediumLogo: "http://image.xmcdn.com/group4/M03/79/E8/wKgDs1PHPD-jwj9-AAOhEL6AyVc833_mobile_large.jpg",
+//    personDescribe: "莱兮言情，青春言情女王",
+//    albums: 19
+    
+    var uid : Int?
+    var nickname : String?
+    var mediumLogo : String?
+    var personDescribe : String?
+    var albums : Int?
+    
 }
 
+struct SectionOfGather : HandyJSON{
+//    ret: 0,
+//    msg: "",
+//    maxPageId: 3,
+//    totalCount: 74,
+//    pageSize: 30,
+//    pageId: 1,
+//    list : [GatherJsonModel]
+    var red : Int?
+    var msg : String?
+    var maxPageId : Int?
+    var totalCount : Int?
+    var pageId : Int?
+    var list: [GatherJsonModel]?
+}
 
 
 // MARK: - 首页点击进入Albums

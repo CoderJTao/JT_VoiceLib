@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import  Kingfisher
 
 class FindCardCell: UICollectionViewCell {
     
@@ -29,7 +30,12 @@ class FindCardCell: UICollectionViewCell {
     func setCell(model: GatherJsonModel) {
         self.jsonModel = model
         
-        self.showImg.heroID = "AlbumShowImage"+"\(model.anInt)"
+        self.showImg.heroID = "AlbumShowImage+\(String(describing: model.uid))"
+        
+        self.showImg.kf.setImage(with: URL(string: model.mediumLogo!), placeholder: UIImage(named:"default"))
+        if let str = model.personDescribe {
+            self.titleLbl.text = str
+        }
     }
     
     

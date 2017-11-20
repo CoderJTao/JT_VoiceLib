@@ -13,6 +13,9 @@ import RxDataSources
 
 class FindViewModel {
     
+    var gathers = Variable<[GatherJsonModel]>([])
+    var totalPage = 99999
+    
     let disposeBag = DisposeBag()
     
     var gatherAlbums = Variable([SectionOfGather]())
@@ -23,20 +26,31 @@ class FindViewModel {
     }
     
     // 获取列表
-    func loadData() {
+    func loadData(_ pageNum : Int, _ isRefresh: Bool) {
         
-        let sections = [
-            SectionOfGather(header: "First section", items: [GatherJsonModel(anInt: 0, aString: "zero", aCGPoint: CGPoint.zero), GatherJsonModel(anInt: 1, aString: "one", aCGPoint: CGPoint(x: 1, y: 1)), GatherJsonModel(anInt: 2, aString: "two", aCGPoint: CGPoint(x: 2, y: 2)), GatherJsonModel(anInt: 3, aString: "three", aCGPoint: CGPoint(x: 3, y: 3)) ])
-        ]
+        if isRefresh {
+            NetWorkService.sharedInstance.getGather(pageNum: "\(pageNum)")
+                .subscribe(onNext: { (sectionOfGather) in
+                    self.gathers.value = sectionOfGather.list!
+                    self.totalPage = sectionOfGather.totalCount!
+                }, onError: { (error) in
+                    
+                }).disposed(by: disposeBag)
+        } else {
+            if pageNum > totalPage { return }
+            
+            NetWorkService.sharedInstance.getGather(pageNum: "\(pageNum)")
+                .subscribe(onNext: { (sectionOfGather) in
+                    self.gathers.value = self.gathers.value + sectionOfGather.list!
+                    self.totalPage = sectionOfGather.totalCount!
+                }, onError: { (error) in
+                    
+                }).disposed(by: disposeBag)
+        }
         
-        self.gatherAlbums.value = sections
         
-        NetWorkService.sharedInstance.getGather(pageNum: "1")
-            .subscribe(onNext: { (gather) in
-                print(gather)
-            }, onError: { (error) in
-                
-            }).disposed(by: disposeBag)
+        
+        
         
     }
     
