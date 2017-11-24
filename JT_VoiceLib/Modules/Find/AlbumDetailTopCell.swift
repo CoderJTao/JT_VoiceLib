@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class AlbumDetailTopCell: UITableViewCell {
 
@@ -19,6 +20,7 @@ class AlbumDetailTopCell: UITableViewCell {
     @IBOutlet weak var detailBtn: UIButton!
     @IBOutlet weak var subscribeBtn: UIButton!
     
+    var jsonModel : TrackTopJsonModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,7 +34,26 @@ class AlbumDetailTopCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+//    nickname: "莱兮",
+    //    uid: 1021189,
+    //    smallLogo: "http://image.xmcdn.com/group29/M03/A2/75/wKgJWVlKAN6BlKjkAADuKE1lj5c066_mobile_small.jpg",
+    //    albumId: 10076452,
+    //    title: "头条星闻1",
+    //    coverSmall: "http://image.xmcdn.com/group33/M00/4A/61/wKgJnVmarFTCZ-fiAAF1FxXUpug810_mobile_small.jpg",
+    //    coverLarge: "http://image.xmcdn.com/group33/M00/4A/61/wKgJnVmarFTCZ-fiAAF1FxXUpug810_mobile_large.jpg",
+    //    intro: "【内容简介】 关于她—— 她是30张唱片记录的乐坛衰人；她是除了梦想只剩一箱泡面...",
+    //    richIntro: "",
+    //    updatedAt: 1510842242000,
+    //    playCount: 68423,
+    //    tracks: 12
+    func setCell(model: TrackTopJsonModel) {
+        self.jsonModel = model
+        
+        self.bgView.kf.setImage(with: URL(string: (jsonModel?.coverLarge)!))
+        self.showImg.kf.setImage(with: URL(string: (jsonModel?.coverSmall)!))
+        self.descLbl.text = jsonModel?.intro
+        self.countLbl.text = String(format: "节目数：%d", (jsonModel?.tracks)!)
+    }
     
     // MARK: - 进入简介
     @IBAction func goToDetailClick(_ sender: Any) {

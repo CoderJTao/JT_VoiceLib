@@ -108,7 +108,6 @@ extension LibraryViewController {
                 table.selectRow(at: IndexPath.init(row: 0, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.none)
                 return cell
             }
-            
         )
     }
     

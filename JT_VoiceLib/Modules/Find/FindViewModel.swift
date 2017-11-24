@@ -18,8 +18,6 @@ class FindViewModel {
     
     let disposeBag = DisposeBag()
     
-    var gatherAlbums = Variable([SectionOfGather]())
-    
     init() {
         
         

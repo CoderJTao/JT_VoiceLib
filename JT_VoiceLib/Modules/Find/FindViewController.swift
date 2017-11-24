@@ -61,10 +61,12 @@ class FindViewController: UIViewController {
     
     
     // MARK: -  cell selected
-    private func itemSelected(model:GatherJsonModel) {
+    private func itemSelected(model:GatherJsonModel, passImg: UIImage) {
         let storyboard = UIStoryboard(name: "FindStoryBoard", bundle: Bundle.main)
         if let controller = storyboard.instantiateViewController(withIdentifier: "FindNextViewController") as? FindNextViewController {
             controller.imageHeroId = "AlbumShowImage+\(String(describing: model.uid))"
+            controller.passImg = passImg
+            controller.passModel = model
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
@@ -102,7 +104,7 @@ extension FindViewController {
         self.collectionView.rx.itemSelected
             .subscribe(onNext: { [weak self] index in
                 let cell = self?.collectionView.cellForItem(at: index) as! FindCardCell
-                self?.itemSelected(model: cell.jsonModel!)
+                self?.itemSelected(model: cell.jsonModel!, passImg: cell.showImg.image!)
             })
             .disposed(by: disposeBag)
     }

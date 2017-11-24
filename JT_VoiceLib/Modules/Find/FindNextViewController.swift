@@ -10,18 +10,22 @@ import UIKit
 import RxSwift
 import RxDataSources
 import RxCocoa
+import Kingfisher
 
 class FindNextViewController: UIViewController {
 
     var imageHeroId : String?
+    var passModel : GatherJsonModel? {
+        didSet {
+            self.viewModel.loadData(uid: (passModel?.uid)!, pageNum)
+        }
+    }
+    var passImg : UIImage?
+    var pageNum : Int = 1
     
     @IBOutlet weak var showImg: UIImageView!
-    
-    @IBOutlet weak var showTitle: UILabel!
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    var dataSource : RxCollectionViewSectionedReloadDataSource<SectionOfAlbums>!
+
     
     let disposeBag = DisposeBag()
     let viewModel = FindNextViewModel()
@@ -29,12 +33,15 @@ class FindNextViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.showImg.heroID = self.imageHeroId
+        self.showImg.image = passImg
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.showNavigationBackButton()
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.collectionView.isHidden = false
+        
     }
     
     override func viewDidLoad() {
@@ -42,33 +49,21 @@ class FindNextViewController: UIViewController {
         
         setUpCollectionView()
         
-        self.viewModel.loadData()
+        
     }
     
-    private func setUpCollectionView() {
-//        self.collectionView.register(UINib(nibName: "FindNextCell", bundle: nil), forCellWithReuseIdentifier: "FindNextCell")
-        
-        let (configureCollectionViewCell, configureSupplementaryView) =  FindNextViewController.collectionViewDataSourceUI()
-        let dataSourceT = RxCollectionViewSectionedReloadDataSource(configureCell: configureCollectionViewCell, configureSupplementaryView: configureSupplementaryView)
-        self.dataSource = dataSourceT
-        
-        self.viewModel.albums.asObservable()
-            .bind(to: collectionView.rx.items(dataSource: self.dataSource))
-            .disposed(by: disposeBag)
-        
-        self.collectionView.rx.itemSelected
-            .subscribe(onNext: { [weak self] index in
-                let cell = self?.collectionView.cellForItem(at: index) as! FindNextCell
-                self?.itemSelected(model: cell.jsonModel!)
-            })
-            .disposed(by: disposeBag)
+    // MARK: - 加载数据
+    func loadMoreData() {
+        pageNum += 1
+        self.viewModel.loadData(uid: (passModel?.uid)!, pageNum)
     }
     
+    // MARK: - cell 点击事件
     private func itemSelected(model:AlbumsJsonModel) {
         
         let storyboard = UIStoryboard(name: "FindStoryBoard", bundle: Bundle.main)
         if let controller = storyboard.instantiateViewController(withIdentifier: "AlbumDetailViewController") as? AlbumDetailViewController {
-            
+            controller.passAlbumId = model.albumId
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
@@ -83,29 +78,36 @@ class FindNextViewController: UIViewController {
         self.collectionView.isHidden = true
         self.navigationController?.popViewController(animated: true)
     }
-    
-    
-
 }
 
 extension FindNextViewController {
+    
+    private func setUpCollectionView() {
+        
+        self.viewModel.albums.asObservable().observeOn(MainScheduler.instance)
+            .bind(to: self.collectionView.rx.items(cellIdentifier: "FindNextCell", cellType: FindNextCell.self)) { (index: Int, model: AlbumsJsonModel, cell: FindNextCell) in
+                cell.setCell(model: model)
+            }.disposed(by: self.disposeBag)
+        
+        // 设置代理  监测滑动   上拉加载更多数据
+        self.collectionView.rx.setDelegate(self).disposed(by: self.disposeBag)
+        
+        self.collectionView.rx.itemSelected
+            .subscribe(onNext: { [weak self] index in
+                let cell = self?.collectionView.cellForItem(at: index) as! FindNextCell
+                self?.itemSelected(model: cell.jsonModel!)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+}
 
-    static func collectionViewDataSourceUI() -> (
-        CollectionViewSectionedDataSource<SectionOfAlbums>.ConfigureCell,
-        CollectionViewSectionedDataSource<SectionOfAlbums>.ConfigureSupplementaryView
-        ) {
-            return (
-                { (_, cv, ip, i) in
-                    let cell = cv.dequeueReusableCell(withReuseIdentifier: "FindNextCell", for: ip) as! FindNextCell
-                    cell.showTitle.text = "\(i.aString)"
-                    cell.setCell(model: i)
-                    return cell
-                    
-            },
-                { (ds ,cv, kind, ip) in
-                    let section = UICollectionReusableView()
-                    return section
-            }
-            )
+extension FindNextViewController : UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if collectionView.contentSize.width < collectionView.width { return }
+        if scrollView.contentOffset.x + (scrollView.frame.size.width) > scrollView.contentSize.width+60 {
+            self.loadMoreData()
+        }
     }
 }

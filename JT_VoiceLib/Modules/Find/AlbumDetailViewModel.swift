@@ -9,24 +9,76 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class AlbumDetailViewModel {
     
-    var tracks = Variable([SectionOfTracks]())
+    var trackTop : Variable<TrackTopJsonModel>?
+    var tracks = Variable<[TracksJsonModel]>([])
+    
+    var allList = Variable<[AlbumModel]>([])
+    
+    var totalPage = 99999
     
     let disposeBag = DisposeBag()
     
+    var albumDetailModels = Variable<[AlbumDetailModel]>([])
+    
+    var dataSource : RxTableViewSectionedReloadDataSource<AlbumDetailModel>!
+    
     init() {
+        self.dataSource = self.getDataSources()
     }
     
     // 获取列表
-    func loadData() {
+    func loadData(uid: Int, pageNum: Int) {
+        if pageNum > totalPage { return }
         
-        let sections = [
-            SectionOfTracks(header: "", items: [TracksJsonModel(anInt: 0, aString: "zero", aCGPoint: CGPoint.zero), TracksJsonModel(anInt: 1, aString: "one", aCGPoint: CGPoint(x: 1, y: 1)), TracksJsonModel(anInt: 2, aString: "two", aCGPoint: CGPoint(x: 2, y: 2)), TracksJsonModel(anInt: 3, aString: "three", aCGPoint: CGPoint(x: 3, y: 3)) ])
-        ]
-        
-        self.tracks.value = sections
+        NetWorkService.sharedInstance.getTracksList(uid: "\(uid)", pageNum: "\(pageNum)")
+            .subscribe(onNext: { (sections) in
+//                self.tracks.value = (sections.tracks?.list)!
+//                self.trackTop?.value = sections.album!
+//                self.totalPage = (sections.tracks?.maxPageId)!
+                
+                
+//                var temp : [AlbumModel] = []
+//                temp.append(AlbumModel.init(top: sections.album, detail: nil))
+//                for model in (sections.tracks?.list)! {
+//                    temp.append(AlbumModel.init(top: nil, detail: model))
+//                }
+//                self.allList.value = temp
+                
+                var temp : [AlbumDetailModel] = []
+                temp.append(AlbumDetailModel.topSection(items: [AlbumDetailSection.topItem(model: sections.album!)]))
+                for model in (sections.tracks?.list)! {
+                    temp.append(AlbumDetailModel.detailSection(items: [AlbumDetailSection.detailItem(model: model)]))
+                }
+                self.albumDetailModels.value = temp
+                
+            }, onError: { (error) in
+                
+            }).disposed(by: self.disposeBag)
         
     }
+}
+
+extension AlbumDetailViewModel {
+    
+    func getDataSources() -> RxTableViewSectionedReloadDataSource<AlbumDetailModel> {
+        
+        return RxTableViewSectionedReloadDataSource<AlbumDetailModel>.init(configureCell: { (datasource, tableV, indexPath, section) -> UITableViewCell in
+            
+            switch section {
+            case .topItem(let model):
+                let cell: AlbumDetailTopCell = tableV.dequeueReusableCell(withIdentifier: "AlbumDetailTopCell") as! AlbumDetailTopCell
+                cell.setCell(model: model)
+                return cell
+            case .detailItem(let model):
+                let cell: AlbumDetailCell = tableV.dequeueReusableCell(withIdentifier: "AlbumDetailCell") as! AlbumDetailCell
+                cell.setCell(model: model)
+                return cell
+            }
+        })
+    }
+    
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FindNextCell: UICollectionViewCell {
     
@@ -24,6 +25,12 @@ class FindNextCell: UICollectionViewCell {
     
     func setCell(model: AlbumsJsonModel) {
         self.jsonModel = model
+        
+        let str = NSMutableString.init(string: (jsonModel?.coverSmall)!)
+        str.replaceCharacters(in: NSRange.init(location: str.length-9, length: 5), with: "large")
+        
+        self.showImg.kf.setImage(with: URL(string: str as String), placeholder: UIImage(named:"default"))
+        self.showTitle.text = model.title
         
     }
 }

@@ -31,8 +31,11 @@ class FindCardCell: UICollectionViewCell {
         self.jsonModel = model
         
         self.showImg.heroID = "AlbumShowImage+\(String(describing: model.uid))"
+
+        let str = NSMutableString.init(string: (jsonModel?.mediumLogo)!)
+        str.insert("x_", at: str.length-9)
         
-        self.showImg.kf.setImage(with: URL(string: model.mediumLogo!), placeholder: UIImage(named:"default"))
+        self.showImg.kf.setImage(with: URL(string: str as String), placeholder: UIImage(named:"default"))
         if let str = model.personDescribe {
             self.titleLbl.text = str
         }

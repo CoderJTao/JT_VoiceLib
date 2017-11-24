@@ -9,10 +9,15 @@
 import UIKit
 import RxSwift
 import RxDataSources
+import Kingfisher
 
 class FindNextViewModel {
     
-    var albums = Variable([SectionOfAlbums]())
+    var albums = Variable<[AlbumsJsonModel]>([])
+    
+    var totalPage = 99999
+    
+    let disposeBag  = DisposeBag()
     
     init() {
         
@@ -20,13 +25,18 @@ class FindNextViewModel {
     }
     
     // 获取列表
-    func loadData() {
+    func loadData(uid: Int, _ pageNum : Int) {
         
-        let sections = [
-            SectionOfAlbums(header: "First section", items: [AlbumsJsonModel(anInt: 0, aString: "zero", aCGPoint: CGPoint.zero), AlbumsJsonModel(anInt: 1, aString: "one", aCGPoint: CGPoint(x: 1, y: 1)), AlbumsJsonModel(anInt: 2, aString: "two", aCGPoint: CGPoint(x: 2, y: 2)), AlbumsJsonModel(anInt: 3, aString: "three", aCGPoint: CGPoint(x: 3, y: 3)) ])
-        ]
+        if pageNum > totalPage { return }
         
-        self.albums.value = sections
+        NetWorkService.sharedInstance.getAlbumsList(uid: "\(uid)", pageNum: "\(pageNum)")
+            .subscribe(onNext: { (albums) in
+                
+                self.albums.value = self.albums.value + albums.list!
+                self.totalPage = albums.maxPageId!
+            }, onError: { (error) in
+                
+            }).disposed(by: self.disposeBag)
         
     }
     

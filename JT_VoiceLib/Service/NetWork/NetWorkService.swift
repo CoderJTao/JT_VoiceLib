@@ -41,13 +41,6 @@ class NetWorkService {
                     .subscribe(onNext: { (response) in
                         if let datas = (try? response.mapJSON()) as? [String: Any] {
                             let sectionOfGather = SectionOfGather.deserialize(from: datas)
-//                            var models = [GatherJsonModel]()
-//                            let list = datas["list"] as? [[String : Any]]
-//                            guard let a = list else { return }
-//                            for data in a {
-//                                let model = GatherJsonModel.deserialize(from: data)
-//                                models.append(model!)
-//                            }
                             observer.onNext(sectionOfGather!)
                             observer.onCompleted()
                         } else {
@@ -59,6 +52,51 @@ class NetWorkService {
                 return Disposables.create()
             }
         })
+    }
+    
+    // MARK: -  获取专辑列表
+    func getAlbumsList(uid: String, pageNum: String) -> Observable<SectionOfAlbums> {
         
+        return findProvider.flatMap({ (provider) -> Observable<SectionOfAlbums> in
+            return Observable.create({ (observer : AnyObserver<SectionOfAlbums>) -> Disposable in
+                provider.rx.request(FindMoya.getAlbumsList(uid: uid, pageNum: pageNum))
+                    .asObservable()
+                    .subscribe(onNext: { (response) in
+                        if let datas = (try? response.mapJSON()) as? [String: Any] {
+                            let sectionOfAlbums = SectionOfAlbums.deserialize(from: datas)
+                            observer.onNext(sectionOfAlbums!)
+                            observer.onCompleted()
+                        } else {
+                             observer.onError("NetworkErrorCode.internalError" as! Error)
+                        }
+                    }, onError: { (error) in
+                        
+                    }).disposed(by: self.disposeBag)
+                return Disposables.create()
+            })
+        })
+    }
+    
+    // MARK: - 获取专辑详情
+    func getTracksList(uid: String, pageNum: String) -> Observable<SectionOfTracks> {
+        
+        return findProvider.flatMap({ (provider) -> Observable<SectionOfTracks> in
+            return Observable.create({ (observer: AnyObserver<SectionOfTracks>) -> Disposable in
+                provider.rx.request(FindMoya.getTacksList(uid: uid, pageNum: pageNum))
+                    .asObservable()
+                    .subscribe(onNext: { (response) in
+                        if let datas = (try? response.mapJSON()) as? [String: Any] {
+                            let sectionOfTracks = SectionOfTracks.deserialize(from: datas)
+                            observer.onNext(sectionOfTracks!)
+                            observer.onCompleted()
+                        } else {
+                            observer.onError("NetworkErrorCode.internalError" as! Error)
+                        }
+                    }, onError: { (error) in
+                        
+                    }).disposed(by: self.disposeBag)
+                return Disposables.create()
+            })
+        })
     }
 }

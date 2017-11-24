@@ -13,9 +13,15 @@ import RxDataSources
 
 class AlbumDetailViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
+    var passAlbumId : Int? {
+        didSet {
+            self.viewModel.loadData(uid: passAlbumId!, pageNum: pageNum)
+        }
+    }
     
-    var dataSource : RxTableViewSectionedReloadDataSource<SectionOfTracks>!
+    var pageNum = 1
+    
+    @IBOutlet weak var tableView: UITableView!
     
     let disposeBag = DisposeBag()
     let viewModel = AlbumDetailViewModel()
@@ -34,8 +40,7 @@ class AlbumDetailViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
      
-        
-        self.viewModel.loadData()
+       
     }
     
     
@@ -43,20 +48,19 @@ class AlbumDetailViewController: UIViewController {
     func setUpTableView() {
         self.title = "专辑列表"
         tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentBehavior.never
-        self.dataSource = AlbumDetailViewController.getDataSource()
-        
-        self.viewModel.tracks.asObservable()
-            .bind(to: tableView.rx.items(dataSource: self.dataSource))
-            .disposed(by: disposeBag)
-        
+                
         self.tableView.rx.setDelegate(self).disposed(by: self.disposeBag)
+        
+        self.viewModel.albumDetailModels.asObservable().observeOn(MainScheduler.instance)
+            .bind(to: self.tableView.rx.items(dataSource: self.viewModel.dataSource))
+            .disposed(by: self.disposeBag)
         
         self.tableView.rx.itemSelected
             .subscribe(onNext: { [unowned self] index in
-                if index.row > 0 {
-                    let cell = self.tableView.cellForRow(at: index) as! AlbumDetailCell
-                    self.itemSelected(model: cell.jsonModel!)
-                }
+//                if index.row > 0 {
+//                    let cell = self.tableView.cellForRow(at: index) as! AlbumDetailCell
+//                    self.itemSelected(model: cell.jsonModel!)
+//                }
             })
             .disposed(by: disposeBag)
     }
@@ -64,7 +68,7 @@ class AlbumDetailViewController: UIViewController {
     private func itemSelected(model:TracksJsonModel) {
         let storyboard = UIStoryboard(name: "Play", bundle: Bundle.main)
         if let controller = storyboard.instantiateViewController(withIdentifier: "PlayViewController") as? PlayViewController {
-            controller.title = model.aString
+            
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
@@ -83,34 +87,16 @@ class AlbumDetailViewController: UIViewController {
 extension AlbumDetailViewController: UITableViewDelegate, UIScrollViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             return 260
         } else {
             return 80
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
-    }
-    
 }
 
 extension AlbumDetailViewController {
     
     
-    static func getDataSource() -> RxTableViewSectionedReloadDataSource<SectionOfTracks> {
-        return RxTableViewSectionedReloadDataSource<SectionOfTracks>(
-            configureCell: { (dataSource, table, idxPath, model) in
-                if idxPath.row == 0 {
-                    let cell = table.dequeueReusableCell(withIdentifier: "AlbumDetailTopCell", for: idxPath) as! AlbumDetailTopCell
-                    return cell
-                } else {
-                    let cell = table.dequeueReusableCell(withIdentifier: "AlbumDetailCell", for: idxPath) as! AlbumDetailCell
-                    cell.setCell(model: model)
-                    return cell
-                }
-        }
-        )
-    }
+   
 }
