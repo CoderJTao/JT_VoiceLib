@@ -16,8 +16,7 @@ class LibraryViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var dataSourceForTable : RxTableViewSectionedReloadDataSource<SectionOfCatalog>!
-    var dataSourceForCollection : RxCollectionViewSectionedReloadDataSource<SectionOfCatalogDetail>!
+    private var pageNum = 1
     
     let disposeBag = DisposeBag()
     let viewModel = LibraryViewModel()
@@ -41,35 +40,37 @@ class LibraryViewController: UIViewController {
         // tableView
         self.tableView.rx.setDelegate(self).disposed(by: self.disposeBag)
         
-        self.dataSourceForTable = LibraryViewController.getTableViewDataSource()
-        
-        self.viewModel.catalogs.asObservable()
-            .bind(to: tableView.rx.items(dataSource: self.dataSourceForTable))
-            .disposed(by: disposeBag)
-        
-//        self.tableView.delegate?tableView!(self.tableView, didSelectRowAt: IndexPath.init(row: 0, section: 0))
+        self.viewModel.categorys.asObservable().observeOn(MainScheduler.instance)
+            .bind(to: self.tableView.rx.items(cellIdentifier: "LibraryLeftCell", cellType: LibraryLeftCell.self)) {[unowned self] (index: Int, model: CategoryJsonModel, cell: LibraryLeftCell) in
+                cell.setCell(model: model)
+                
+                self.tableView.selectRow(at: IndexPath.init(row: 0, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.none)
+                if index == 0 {
+                    self.viewModel.loadCatalogDetail(catalog: model.name!, pageNum: self.pageNum)
+                }
+            }.disposed(by: self.disposeBag)
         
         // collectionView
-        let (configureCollectionViewCell, configureSupplementaryView) =  LibraryViewController.getCollectionViewDataSource()
-        let dataSourceT = RxCollectionViewSectionedReloadDataSource(configureCell: configureCollectionViewCell, configureSupplementaryView: configureSupplementaryView)
-        self.dataSourceForCollection = dataSourceT
         
-        self.viewModel.catalogDetail.asObservable()
-            .bind(to: collectionView.rx.items(dataSource: self.dataSourceForCollection))
-            .disposed(by: disposeBag)
+        self.collectionView.rx.setDelegate(self).disposed(by: self.disposeBag)
+        
+        self.viewModel.catelogDetailList.asObservable().observeOn(MainScheduler.instance)
+            .bind(to: self.collectionView.rx.items(cellIdentifier: "LibraryRightCell", cellType: LibraryRightCell.self)) { (index: Int, model: CategoryDetailListJsonModel, cell: LibraryRightCell) in
+                cell.setCell(model: model)
+            }.disposed(by: self.disposeBag)
         
         self.collectionView.rx.itemSelected
             .subscribe(onNext: { [unowned self] index in
                 let cell = self.collectionView.cellForItem(at: index) as! LibraryRightCell
-                self.collectionViewItemSelected(model: cell.jsonModel!)
+                self.collectionViewItemSelected(model: cell.jsonModel ?? CategoryDetailListJsonModel())
             })
             .disposed(by: disposeBag)
     }
     
-    private func collectionViewItemSelected(model: CatalogDetailJsonModel) {
+    private func collectionViewItemSelected(model: CategoryDetailListJsonModel) {
         let storyboard = UIStoryboard(name: "FindStoryBoard", bundle: Bundle.main)
         if let controller = storyboard.instantiateViewController(withIdentifier: "AlbumDetailViewController") as? AlbumDetailViewController {
-            
+            controller.passAlbumId = model.id
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
@@ -88,47 +89,16 @@ extension LibraryViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as? LibraryLeftCell
-        self.viewModel.loadCatalogDetail(catalog: cell?.jsonModel?.aString)
+        self.viewModel.loadCatalogDetail(catalog: (cell?.jsonModel?.name)!, pageNum: pageNum)
     }
     
-}
-
-
-extension LibraryViewController {
-    
-    static func getTableViewDataSource() -> RxTableViewSectionedReloadDataSource<SectionOfCatalog> {
-        return RxTableViewSectionedReloadDataSource<SectionOfCatalog>(
-            configureCell: { (dataSource, table, idxPath, model) in
-                let cell = table.dequeueReusableCell(withIdentifier: "LibraryLeftCell", for: idxPath) as! LibraryLeftCell
-                cell.setCell(model: model)
-                cell.titleLbl.text = "\(model.aString)"
-                let view = UIView()
-                view.backgroundColor = CellSelctedBackGroundColor
-                cell.selectedBackgroundView = view
-                table.selectRow(at: IndexPath.init(row: 0, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.none)
-                return cell
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if collectionView == scrollView {
+            if collectionView.contentSize.width < collectionView.width { return }
+            if scrollView.contentOffset.x + (scrollView.frame.size.width) > scrollView.contentSize.width+60 {
+//                self.loadMoreData()
             }
-        )
+        }
     }
-    
-    static func getCollectionViewDataSource() -> (
-        CollectionViewSectionedDataSource<SectionOfCatalogDetail>.ConfigureCell,
-        CollectionViewSectionedDataSource<SectionOfCatalogDetail>.ConfigureSupplementaryView
-        ) {
-            return (
-                { (_, cv, ip, i) in
-                    let cell = cv.dequeueReusableCell(withReuseIdentifier: "LibraryRightCell", for: ip) as! LibraryRightCell
-                    cell.setCell(model: i)
-                    cell.titleLbl.text = "\(i.aString)"
-                    return cell
-                    
-            },
-                { (ds ,cv, kind, ip) in
-                    let section = UICollectionReusableView()
-                    return section
-            }
-            )
-    }
-    
 }
 

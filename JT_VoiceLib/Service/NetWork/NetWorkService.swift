@@ -31,6 +31,16 @@ class NetWorkService {
         }
     }
     
+    // library moya provider
+    fileprivate var libraryProvider : Observable<MoyaProvider<LibraryMoya>> {
+        return Observable.create { (observable : AnyObserver<MoyaProvider<LibraryMoya>>) in
+            let provider = MoyaProvider<LibraryMoya>()
+            observable.onNext(provider)
+            return Disposables.create()
+        }
+    }
+    
+    
     // MARK - 获取首页GatherList
     func getGather(pageNum: String) ->Observable<SectionOfGather> {
         
@@ -94,6 +104,62 @@ class NetWorkService {
                         }
                     }, onError: { (error) in
                         
+                    }).disposed(by: self.disposeBag)
+                return Disposables.create()
+            })
+        })
+    }
+    
+    // MARK: - 获取音库类别列表
+    func getCategotyList() -> Observable<[CategoryJsonModel]> {
+        
+        return libraryProvider.flatMap({ (provider) -> Observable<[CategoryJsonModel]> in
+            return Observable.create({ (observer: AnyObserver<[CategoryJsonModel]>) -> Disposable in
+                provider.rx.request(LibraryMoya.getCategory())
+                    .asObservable()
+                    .subscribe(onNext: { (response) in
+                        if let datas = (try? response.mapJSON()) as? [String: Any] {
+                            let listArr = datas["tags"] as! [[String : Any]]
+                            var tempArr = [CategoryJsonModel]()
+                            for dic in listArr {
+                                let model = CategoryJsonModel.deserialize(from: dic)
+                                tempArr.append(model!)
+                            }
+                            observer.onNext(tempArr)
+                            observer.onCompleted()
+                        } else {
+                            observer.onError("NetworkErrorCode.internalError" as! Error)
+                        }
+                    }, onError: { (error) in
+                        
+                    }).disposed(by: self.disposeBag)
+                return Disposables.create()
+            })
+        })
+    }
+    
+    // MARK: - 获取音库类别详情列表
+    func getCategotyDetailList(catelog: String, pageNum: String) -> Observable<[CategoryDetailListJsonModel]> {
+
+        return libraryProvider.flatMap({ (provider) -> Observable<[CategoryDetailListJsonModel]> in
+            return Observable.create({ (observer: AnyObserver<[CategoryDetailListJsonModel]>) -> Disposable in
+                provider.rx.request(LibraryMoya.getCategoryDetail(type: catelog, pageNum: pageNum))
+                    .asObservable()
+                    .subscribe(onNext: { (response) in
+                        if let datas = (try? response.mapJSON()) as? [String: Any] {
+                            let listArr = datas["list"] as! [[String : Any]]
+                            var tempArr = [CategoryDetailListJsonModel]()
+                            for dic in listArr {
+                                let model = CategoryDetailListJsonModel.deserialize(from: dic)
+                                tempArr.append(model!)
+                            }
+                            observer.onNext(tempArr)
+                            observer.onCompleted()
+                        } else {
+                            observer.onError("NetworkErrorCode.internalError" as! Error)
+                        }
+                    }, onError: { (error) in
+
                     }).disposed(by: self.disposeBag)
                 return Disposables.create()
             })

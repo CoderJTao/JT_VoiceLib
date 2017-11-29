@@ -14,11 +14,6 @@ import HandyJSON
 
 // MARK: - 发现首页的jsonmodel
 struct GatherJsonModel : HandyJSON{
-    
-    var anInt: Int?
-    var aString: String?
-    var aCGPoint: CGPoint?
-
 //    uid: 1021189,
 //    nickname: "女王乔安",
 //    mediumLogo: "http://image.xmcdn.com/group4/M03/79/E8/wKgDs1PHPD-jwj9-AAOhEL6AyVc833_mobile_large.jpg",
@@ -52,7 +47,6 @@ struct SectionOfGather : HandyJSON{
 
 // MARK: - 首页点击进入Albums
 struct AlbumsJsonModel : HandyJSON {
-    
 //    albumId: 10076452,
 //    title: "头条星闻1",
 //    coverSmall: "http://fdfs.xmcdn.com/group33/M00/4A/61/wKgJnVmarFTCZ-fiAAF1FxXUpug810_mobile_small.jpg",

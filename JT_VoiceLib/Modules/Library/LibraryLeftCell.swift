@@ -11,7 +11,7 @@ import UIKit
 
 class LibraryLeftCell: UITableViewCell {
     
-    var jsonModel: CatalogJsonModel?
+    var jsonModel: CategoryJsonModel?
     
     @IBOutlet weak var titleLbl: UILabel!
     
@@ -28,9 +28,10 @@ class LibraryLeftCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setCell(model: CatalogJsonModel) {
+    func setCell(model: CategoryJsonModel) {
         self.jsonModel = model
         
+        self.titleLbl.text = model.name
     }
     
 }

@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 class LibraryRightCell: UICollectionViewCell {
-    var jsonModel : CatalogDetailJsonModel?
+    var jsonModel : CategoryDetailListJsonModel?
     
     @IBOutlet weak var showImg: UIImageView!
     
@@ -20,8 +21,10 @@ class LibraryRightCell: UICollectionViewCell {
         
     }
     
-    func setCell(model: CatalogDetailJsonModel) {
+    func setCell(model: CategoryDetailListJsonModel) {
         self.jsonModel = model
         
+        self.titleLbl.text = model.title
+        self.showImg.kf.setImage(with: URL(string: model.coverSmall!))
     }
 }
