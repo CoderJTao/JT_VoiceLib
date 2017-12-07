@@ -32,14 +32,14 @@ class AlbumDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.showNavigationBackButton()
-        setUpTableView()
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpTableView()
      
        
     }
@@ -59,8 +59,8 @@ class AlbumDetailViewController: UIViewController {
         self.tableView.rx.itemSelected
             .subscribe(onNext: { [unowned self] index in
 //                if index.row > 0 {
-//                    let cell = self.tableView.cellForRow(at: index) as! AlbumDetailCell
-//                    self.itemSelected(model: cell.jsonModel!)
+                    let cell = self.tableView.cellForRow(at: index) as! AlbumDetailCell
+                    self.itemSelected(model: cell.jsonModel!)
 //                }
             })
             .disposed(by: disposeBag)
@@ -69,7 +69,7 @@ class AlbumDetailViewController: UIViewController {
     private func itemSelected(model:TracksJsonModel) {
         let storyboard = UIStoryboard(name: "Play", bundle: Bundle.main)
         if let controller = storyboard.instantiateViewController(withIdentifier: "PlayViewController") as? PlayViewController {
-            
+            controller.playModel = model
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }

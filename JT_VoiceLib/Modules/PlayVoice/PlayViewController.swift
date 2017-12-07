@@ -9,7 +9,15 @@
 import UIKit
 
 class PlayViewController: UIViewController {
-
+    
+    var playModel: TracksJsonModel? {
+        didSet {
+            if let model = playModel {
+                PlayCacheHandler.sharedInstance.playModel = model
+            }
+        }
+    }
+    
     @IBOutlet weak var bgImg: UIImageView!
     
     override func viewWillAppear(_ animated: Bool) {

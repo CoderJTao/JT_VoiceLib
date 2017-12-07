@@ -140,9 +140,10 @@ class NetWorkService {
     
     // MARK: - 获取音库类别详情列表
     func getCategotyDetailList(catelog: String, pageNum: String) -> Observable<[CategoryDetailListJsonModel]> {
-
+        
         return libraryProvider.flatMap({ (provider) -> Observable<[CategoryDetailListJsonModel]> in
             return Observable.create({ (observer: AnyObserver<[CategoryDetailListJsonModel]>) -> Disposable in
+                
                 provider.rx.request(LibraryMoya.getCategoryDetail(type: catelog, pageNum: pageNum))
                     .asObservable()
                     .subscribe(onNext: { (response) in
