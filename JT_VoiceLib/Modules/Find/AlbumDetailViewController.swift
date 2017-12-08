@@ -58,10 +58,10 @@ class AlbumDetailViewController: UIViewController {
         
         self.tableView.rx.itemSelected
             .subscribe(onNext: { [unowned self] index in
-//                if index.row > 0 {
+                if index.section > 0 {
                     let cell = self.tableView.cellForRow(at: index) as! AlbumDetailCell
                     self.itemSelected(model: cell.jsonModel!)
-//                }
+                }
             })
             .disposed(by: disposeBag)
     }

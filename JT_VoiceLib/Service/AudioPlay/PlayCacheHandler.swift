@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import RxSwift
 
 /*
  1. 下载网络音乐文件
@@ -16,10 +17,19 @@ import Moya
 **/
 class PlayCacheHandler: NSObject {
     
+    // 进度
+    var progress = Variable<Float>(0)
+    
+    // 结果
+    var result : Variable<Bool>?
+    
+    // 路径
+    var localPath: Variable<String>?
+    
     var playModel: TracksJsonModel? {
         didSet {
             if let model = playModel {
-                self.cacheMusicData(model: model)
+                self.checkLocal(model: model)
             }
         }
     }
@@ -30,12 +40,19 @@ class PlayCacheHandler: NSObject {
     }()
     
     /// 查询本地是否有当前music 如果有，则返回本地filepath，如果没有则开始缓存
-    func checkLocal() {
-        // 通过realm数据库查询是否有条目
-        //1. 数据库中有  直接播放
+    func checkLocal(model: TracksJsonModel) {
+        guard let trackId = model.trackId else { return }
         
-        //2. 数据库中无  开启下载
+        let dataPath = FileHandle.sharedInstance.checkFileExists(name: "\(trackId)")
         
+        if dataPath.isEmpty {
+            // 本地无音频文件 开启下载
+            self.cacheMusicData(model: model)
+            
+        } else {
+            // 本地有  直接通知外部播放
+            self.localPath?.value = dataPath
+        }
     }
     
     
@@ -44,16 +61,20 @@ class PlayCacheHandler: NSObject {
     func cacheMusicData(model: TracksJsonModel) {
         
         let progressClosure: ProgressBlock = { response in
+            // 将进度通过delegate传出
             print(response.progress)
+            self.progress.value = Float(response.progress)
         }
         
         let progressCompletionClosure: Completion = { result in
-            
+            // 将下载的结果传出
             switch result {
             case .success:
                 print("success")
+                self.result?.value = true
             case .failure:
                 print("failure")
+                self.result?.value = false
             }
         }
         

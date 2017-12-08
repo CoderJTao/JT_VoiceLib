@@ -8,28 +8,73 @@
 
 import Foundation
 import AVFoundation
+import RxSwift
 
-class PlayHandler: NSObject {
+class PlayHandler {
     
-    var playModel = TracksJsonModel()
+    let disposeBag = DisposeBag()
     
-    var playCacheTool = PlayCacheHandler()
+    // 进度
+    var progress = Variable<Float>(0)
     
-    var player: AVPlayer?
+    // 结果
+    var result : Variable<Bool>?
     
-    override init() {
-        
-        let asset = AVAsset.init(url: URL(string: "/Users/jiangtao/Desktop/JT_VoiceLib/JT_VoiceLib/CFNetworkDownload_QyDWY1.tmp")!)
-        
-        let item = AVPlayerItem.init(asset: asset)
-        
-        player = AVPlayer.init(playerItem: item)
-        
-        player?.play()
+    // 路径
+    var localPath: Variable<String>?
+    
+    // 程序开始运行时就必须设置的model
+    var playModel : TracksJsonModel? {
+        didSet {
+            if let model = playModel {
+                checkMusicData(model: model)
+            }
+        }
     }
     
+    
+    
+    var player = AVPlayer.init()
+    
+    
+    
     // MARK: - singleton
-    internal static let sharedInstance = {
-        return PlayHandler()
-    }()
+    
+    // 音频数据信息的绑定
+    func checkMusicData(model: TracksJsonModel) {
+       
+        PlayCacheHandler.sharedInstance.playModel = model
+        
+        PlayCacheHandler.sharedInstance.progress.asObservable()
+            .subscribe(onNext: { (progress) in
+                self.progress.value = progress
+            }).disposed(by: self.disposeBag)
+        
+        PlayCacheHandler.sharedInstance.result?.asObservable()
+            .subscribe(onNext: { (result) in
+                self.result?.value = result
+            }).disposed(by: self.disposeBag)
+        
+        PlayCacheHandler.sharedInstance.localPath?.asObservable()
+            .subscribe(onNext: { (localPath) in
+                self.localPath?.value = localPath
+            }).disposed(by: self.disposeBag)
+    }
 }
+
+extension PlayHandler {
+    
+    func downloadMusicSuccess() {
+        // 下载成功之后  去本地下载文件夹拉去数据播放
+        
+        
+    }
+    
+    func playLocalMusic() {
+        
+    }
+    
+}
+
+
+

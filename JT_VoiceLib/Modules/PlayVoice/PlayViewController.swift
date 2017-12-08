@@ -13,7 +13,7 @@ class PlayViewController: UIViewController {
     var playModel: TracksJsonModel? {
         didSet {
             if let model = playModel {
-                PlayCacheHandler.sharedInstance.playModel = model
+                PlayManager.sharedInstance.playModel = model
             }
         }
     }
@@ -39,6 +39,7 @@ class PlayViewController: UIViewController {
         
         
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
