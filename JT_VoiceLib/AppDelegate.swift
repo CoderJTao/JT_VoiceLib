@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setUpPlayBtn()
         
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         let bar = UITabBar.appearance()
         bar.barTintColor = UIColor.white

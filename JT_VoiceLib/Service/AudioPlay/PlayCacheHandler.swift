@@ -20,11 +20,8 @@ class PlayCacheHandler: NSObject {
     // 进度
     var progress = Variable<Float>(0)
     
-    // 结果
-    var result : Variable<Bool>?
-    
     // 路径
-    var localPath: Variable<String>?
+    var localPath = Variable<String>("")
     
     var playModel: TracksJsonModel? {
         didSet {
@@ -41,17 +38,15 @@ class PlayCacheHandler: NSObject {
     
     /// 查询本地是否有当前music 如果有，则返回本地filepath，如果没有则开始缓存
     func checkLocal(model: TracksJsonModel) {
-        guard let trackId = model.trackId else { return }
+        guard let playStr = model.playUrl32 else { return }
         
-        let dataPath = FileHandle.sharedInstance.checkFileExists(name: "\(trackId)")
+        let dataPath = JTFilePathHelper.sharedInstance.cacheFileExist(playURL: playStr)
         
-        if dataPath.isEmpty {
+        if let filePath = dataPath {
+            self.localPath.value = filePath
+        } else {
             // 本地无音频文件 开启下载
             self.cacheMusicData(model: model)
-            
-        } else {
-            // 本地有  直接通知外部播放
-            self.localPath?.value = dataPath
         }
     }
     
@@ -71,18 +66,47 @@ class PlayCacheHandler: NSObject {
             switch result {
             case .success:
                 print("success")
-                self.result?.value = true
+                
+                self.moveMusicToCachedFile()
             case .failure:
                 print("failure")
-                self.result?.value = false
+                
+                // 弹出提示框提示加载失败
+                
             }
         }
         
         
         let provider = MoyaProvider<MultiTarget>()
         
-        provider.request(MultiTarget.init(MusicMoya.downloadMusic(str: model.playUrl64!)), callbackQueue: DispatchQueue.main, progress: progressClosure, completion: progressCompletionClosure)
+        provider.request(MultiTarget.init(MusicMoya.downloadMusic(str: model.playUrl32!)), callbackQueue: DispatchQueue.main, progress: progressClosure, completion: progressCompletionClosure)
         
     }
+    
+    /// 将下载的音频移到缓存文件夹
+    private func moveMusicToCachedFile() {
+        
+        if let playUrl = playModel?.playUrl32 {
+            let url = URL.init(string: playUrl)!
+            
+            // 刚下载的音频文件路径
+            let musicPath = DocDir + "/" + url.lastPathComponent
+            
+            // 移到缓存文件夹
+            if !FileManager.default.fileExists(atPath: CachedFilePath) {
+                try! FileManager.default.createDirectory(atPath: CachedFilePath, withIntermediateDirectories: true, attributes: nil)
+            }
+            let goalPath = CachedFilePath + "/" + url.lastPathComponent
+    
+            try! FileManager.default.moveItem(atPath: musicPath, toPath: goalPath)
+            
+            self.localPath.value = goalPath
+            
+        } else {
+            return
+        }
+        
+    }
+    
     
 }

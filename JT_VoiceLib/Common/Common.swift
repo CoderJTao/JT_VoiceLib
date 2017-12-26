@@ -25,3 +25,12 @@ let TabBarBgColor = UIColor(r: 35, g: 35, b: 35, a: 0.8)
 
 //cell选中颜色
 let CellSelctedBackGroundColor = UIColor(r: 243, g: 243, b: 243, a: 1)
+
+// 沙盒 Documents 文件夹路径
+var DocDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+
+// 缓存文件夹
+let CachedFilePath = DocDir.appending("/CachedFile")
+
+// 下载文件夹路径
+let DownloadFilePath = DocDir.appending("/Download")

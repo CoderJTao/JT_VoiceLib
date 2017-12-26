@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -46,22 +46,34 @@
                                                 <rect key="frame" x="81" y="125" width="44" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="上一曲"/>
+                                                <connections>
+                                                    <action selector="preClick:" destination="KMy-ux-dmE" eventType="touchUpInside" id="Glv-rk-YzW"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MDz-hQ-Kzw">
                                                 <rect key="frame" x="249" y="125" width="44" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="下一曲"/>
+                                                <connections>
+                                                    <action selector="nextClick:" destination="KMy-ux-dmE" eventType="touchUpInside" id="DTi-dA-RQQ"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ohw-iu-AkK">
                                                 <rect key="frame" x="8" y="132" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="顺序播放"/>
+                                                <connections>
+                                                    <action selector="playTypeClick:" destination="KMy-ux-dmE" eventType="touchUpInside" id="9g0-wN-cVY"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cvm-Bv-odW">
                                                 <rect key="frame" x="155" y="115" width="64" height="64"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="播放"/>
                                                 <state key="selected" image="暂停"/>
+                                                <connections>
+                                                    <action selector="playAndPauseClick:" destination="KMy-ux-dmE" eventType="touchUpInside" id="VzU-87-kc3"/>
+                                                </connections>
                                             </button>
                                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mjx-lm-FhP">
                                                 <rect key="frame" x="61" y="65" width="253" height="30"/>
@@ -71,6 +83,9 @@
                                                 <rect key="frame" x="325" y="132" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="列表"/>
+                                                <connections>
+                                                    <action selector="musicListClick:" destination="KMy-ux-dmE" eventType="touchUpInside" id="c0S-NB-NM4"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18u-gL-cfL">
                                                 <rect key="frame" x="88" y="8" width="30" height="30"/>
@@ -96,6 +111,13 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
+                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Rd-3i-uuE">
+                                        <rect key="frame" x="0.0" y="202" width="375" height="465"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <connections>
+                                            <segue destination="uno-6c-fVK" kind="embed" id="7ga-dg-MMZ"/>
+                                        </connections>
+                                    </containerView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -115,11 +137,30 @@
                     </view>
                     <connections>
                         <outlet property="bgImg" destination="u14-qo-Out" id="ci6-TI-ruM"/>
+                        <outlet property="currentTimeLbl" destination="Fpk-fJ-QOg" id="bqE-Fk-2X5"/>
+                        <outlet property="durationLbl" destination="IQJ-hG-cXR" id="4lK-3V-QhO"/>
+                        <outlet property="progressSlider" destination="Mjx-lm-FhP" id="z6h-ee-UAs"/>
+                        <outlet property="showImg" destination="OKj-W2-VHn" id="pOJ-ru-mIp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oJJ-TV-Sph" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8.8000000000000007" y="125.4872563718141"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="el4-AP-sRL">
+            <objects>
+                <viewController id="uno-6c-fVK" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KN6-k7-Nf1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="465"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PA6-hm-u68" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="675" y="388"/>
         </scene>
     </scenes>
     <resources>

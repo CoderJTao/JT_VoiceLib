@@ -13,30 +13,48 @@ class PlayManager: NSObject {
     var playModel: TracksJsonModel? {
         didSet {
             if let model = playModel {
-                // 去询问数据是否存在
-                checkMusicData(model: model)
+                // 将播放对象给playHandle
+                playHandle.playModel = model
             }
         }
     }
     
     // 播放对象
-    var playHandle = PlayHandler()
-    
-    // 管理音频数据的对象
-    var resourceHandle = PlayResourceHandle()
+    private var playHandle = PlayHandler()
     
     // MARK: - singleton
     internal static let sharedInstance = {
         return PlayManager()
     }()
     
+}
+
+
+extension PlayManager {
     
-    
-    /// 让 resourceHandle 查询数据是否存在
-    ///
-    /// - Parameter model: music 对象
-    func checkMusicData(model: TracksJsonModel) {
+    /// 播放
+    func play() {
         
     }
     
+    /// 暂停
+    func pause() {
+        
+    }
+    
+    /// 上一曲
+    func pre() {
+        
+    }
+    
+    /// 下一曲
+    func next() {
+        
+    }
+    
+    /// 拖到指定时间
+    func seekToTime() {
+        
+    }
 }
+

@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 import RxSwift
 
-class PlayHandler {
+class PlayHandler: NSObject {
     
     let disposeBag = DisposeBag()
     
@@ -27,54 +27,71 @@ class PlayHandler {
     var playModel : TracksJsonModel? {
         didSet {
             if let model = playModel {
+                // 去查找
                 checkMusicData(model: model)
             }
         }
     }
     
-    
-    
-    var player = AVPlayer.init()
-    
-    
-    
-    // MARK: - singleton
+    var player = AVAudioPlayer.init()
     
     // 音频数据信息的绑定
     func checkMusicData(model: TracksJsonModel) {
        
         PlayCacheHandler.sharedInstance.playModel = model
         
+        // 下载进度
         PlayCacheHandler.sharedInstance.progress.asObservable()
             .subscribe(onNext: { (progress) in
-                self.progress.value = progress
+                // 下载音频的进度
+                print(progress)
+                
             }).disposed(by: self.disposeBag)
         
-        PlayCacheHandler.sharedInstance.result?.asObservable()
-            .subscribe(onNext: { (result) in
-                self.result?.value = result
-            }).disposed(by: self.disposeBag)
-        
-        PlayCacheHandler.sharedInstance.localPath?.asObservable()
+        // 下载音频的本地路径
+        PlayCacheHandler.sharedInstance.localPath.asObservable().observeOn(MainScheduler.instance)
             .subscribe(onNext: { (localPath) in
-                self.localPath?.value = localPath
+                // 音频的本地位置
+                if !localPath.isEmpty {
+                    self.play(localPath: localPath)
+                }
+                
             }).disposed(by: self.disposeBag)
     }
 }
 
 extension PlayHandler {
     
-    func downloadMusicSuccess() {
-        // 下载成功之后  去本地下载文件夹拉去数据播放
+    /// 播放音频
+    func play(localPath: String) {
+        let url = URL.init(string: localPath)!
         
+        try! player = AVAudioPlayer.init(contentsOf: url)
         
+        player.delegate = self
+        player.play()
     }
     
-    func playLocalMusic() {
-        
+    /// 暂停
+    func pause() {
+        player.pause()
     }
     
+    /// 拖动进度条
+    func seekToTime(progress: Float) {
+        
+    }
 }
 
 
-
+extension PlayHandler: AVAudioPlayerDelegate {
+    
+    // 播放完成
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        
+    }
+    
+    
+    
+    
+}

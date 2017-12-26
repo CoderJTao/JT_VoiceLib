@@ -19,6 +19,11 @@ class PlayViewController: UIViewController {
     }
     
     @IBOutlet weak var bgImg: UIImageView!
+    @IBOutlet weak var showImg: UIImageView!
+    
+    @IBOutlet weak var currentTimeLbl: UILabel!
+    @IBOutlet weak var durationLbl: UILabel!
+    @IBOutlet weak var progressSlider: UISlider!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -46,6 +51,32 @@ class PlayViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // 上一曲
+    @IBAction func preClick(_ sender: UIButton) {
+    }
+    
+    // 下一曲
+    @IBAction func nextClick(_ sender: UIButton) {
+    }
+    
+    // 播放类型
+    @IBAction func playTypeClick(_ sender: UIButton) {
+    }
+    
+    // 播放/暂停
+    @IBAction func playAndPauseClick(_ sender: UIButton) {
+    }
+    
+    // 歌曲列表
+    @IBAction func musicListClick(_ sender: UIButton) {
+    }
+    
+    
+    
+}
+
+extension PlayViewController {
+    
     // MARK: - 添加毛玻璃
     func addBlurEffect() {
         //  创建显示图片
@@ -66,5 +97,5 @@ class PlayViewController: UIViewController {
         //设置模糊透明度
         effectView.alpha = 1
     }
-
 }
+

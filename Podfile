@@ -15,6 +15,8 @@ target 'JT_VoiceLib' do
 	pod 'HandyJSON', '~> 4.0.0-beta.1'
 	pod 'Kingfisher'
 	pod 'RealmSwift', '~> 3.0.2'
+	pod 'Alamofire', '~> 4.5.1'
+	pod 'PKHUD', '~> 5.0'
   target 'JT_VoiceLibTests' do
     inherit! :search_paths
     # Pods for testing

@@ -37,7 +37,10 @@ extension MusicMoya: TargetType {
     }
     
     var task: Task {
-        return .downloadDestination(defaultDownloadDestination)
+        switch self {
+        case .downloadMusic(_):
+            return .downloadDestination(defaultDownloadDestination)
+        }
     }
     
     var headers: [String : String]? {
@@ -52,6 +55,7 @@ private let defaultDownloadDestination: DownloadDestination = { temporaryURL, re
         guard let suggestedFilename = response.suggestedFilename else {
             fatalError("@Moya/contributor error!! We didn't anticipate this being nil")
         }
+        
         return (directoryURLs[0].appendingPathComponent(suggestedFilename), [])
     }
     
