@@ -13,10 +13,7 @@ import RxDataSources
 
 class AlbumDetailViewModel {
     
-    var trackTop : Variable<TrackTopJsonModel>?
     var tracks = Variable<[TracksJsonModel]>([])
-    
-    var allList = Variable<[AlbumModel]>([])
     
     var totalPage = 99999
     
@@ -47,6 +44,9 @@ class AlbumDetailViewModel {
 //                    temp.append(AlbumModel.init(top: nil, detail: model))
 //                }
 //                self.allList.value = temp
+                
+                // 音频列表
+                self.tracks.value = (sections.tracks?.list)!
                 
                 var temp : [AlbumDetailModel] = []
                 temp.append(AlbumDetailModel.topSection(items: [AlbumDetailSection.topItem(model: sections.album!)]))

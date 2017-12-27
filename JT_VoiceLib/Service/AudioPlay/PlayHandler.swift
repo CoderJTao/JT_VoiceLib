@@ -12,6 +12,8 @@ import RxSwift
 
 class PlayHandler: NSObject {
     
+    var passTime = Variable<Float>(0)
+    
     let disposeBag = DisposeBag()
     
     // 进度
@@ -21,7 +23,9 @@ class PlayHandler: NSObject {
     var result : Variable<Bool>?
     
     // 路径
-    var localPath: Variable<String>?
+//    var localPath: Variable<String>?
+    
+    private var localPath : String?
     
     // 程序开始运行时就必须设置的model
     var playModel : TracksJsonModel? {
@@ -35,9 +39,15 @@ class PlayHandler: NSObject {
     
     var player = AVAudioPlayer.init()
     
+    var isPlaying: Bool {
+        get {
+            return player.isPlaying
+        }
+    }
+    
     // 音频数据信息的绑定
     func checkMusicData(model: TracksJsonModel) {
-       
+        
         PlayCacheHandler.sharedInstance.playModel = model
         
         // 下载进度
@@ -53,7 +63,8 @@ class PlayHandler: NSObject {
             .subscribe(onNext: { (localPath) in
                 // 音频的本地位置
                 if !localPath.isEmpty {
-                    self.play(localPath: localPath)
+                    self.localPath = localPath
+                    self.play()
                 }
                 
             }).disposed(by: self.disposeBag)
@@ -62,14 +73,23 @@ class PlayHandler: NSObject {
 
 extension PlayHandler {
     
+    func play() {
+        if let path = self.localPath {
+            self.play(localPath: path)
+        } else {
+            print("本地路径为空")
+        }
+    }
+    
     /// 播放音频
-    func play(localPath: String) {
+    private func play(localPath: String) {
         let url = URL.init(string: localPath)!
         
         try! player = AVAudioPlayer.init(contentsOf: url)
         
         player.delegate = self
         player.play()
+        
     }
     
     /// 暂停

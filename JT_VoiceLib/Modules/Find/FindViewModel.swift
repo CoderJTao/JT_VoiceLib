@@ -19,8 +19,6 @@ class FindViewModel {
     let disposeBag = DisposeBag()
     
     init() {
-        
-        
     }
     
     // 获取列表

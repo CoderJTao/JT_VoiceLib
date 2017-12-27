@@ -70,6 +70,7 @@ class AlbumDetailViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Play", bundle: Bundle.main)
         if let controller = storyboard.instantiateViewController(withIdentifier: "PlayViewController") as? PlayViewController {
             controller.playModel = model
+            controller.listModel = self.viewModel.tracks.value
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }

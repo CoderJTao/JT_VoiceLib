@@ -78,13 +78,16 @@
                                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mjx-lm-FhP">
                                                 <rect key="frame" x="61" y="65" width="253" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="dragTime:" destination="KMy-ux-dmE" eventType="valueChanged" id="qeP-a2-B3X"/>
+                                                </connections>
                                             </slider>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SrY-6I-nlq">
                                                 <rect key="frame" x="325" y="132" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="列表"/>
                                                 <connections>
-                                                    <action selector="musicListClick:" destination="KMy-ux-dmE" eventType="touchUpInside" id="c0S-NB-NM4"/>
+                                                    <action selector="musicListClick:" destination="KMy-ux-dmE" eventType="touchUpInside" id="zRJ-La-rc4"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18u-gL-cfL">
@@ -104,22 +107,35 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="459"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="OKj-W2-VHn">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="OKj-W2-VHn">
                                                 <rect key="frame" x="62" y="124" width="250" height="250"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Rd-3i-uuE">
-                                        <rect key="frame" x="0.0" y="202" width="375" height="465"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <connections>
-                                            <segue destination="uno-6c-fVK" kind="embed" id="7ga-dg-MMZ"/>
-                                        </connections>
-                                    </containerView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ijc-DY-e0F">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mMj-r7-RiG">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="listViewIsHidden:" destination="KMy-ux-dmE" eventType="touchUpInside" id="K8f-Nx-3Ih"/>
+                                        </connections>
+                                    </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pPO-Zs-zBt">
+                                        <rect key="frame" x="0.0" y="217" width="375" height="450"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.300506161971831" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -139,6 +155,8 @@
                         <outlet property="bgImg" destination="u14-qo-Out" id="ci6-TI-ruM"/>
                         <outlet property="currentTimeLbl" destination="Fpk-fJ-QOg" id="bqE-Fk-2X5"/>
                         <outlet property="durationLbl" destination="IQJ-hG-cXR" id="4lK-3V-QhO"/>
+                        <outlet property="listTableView" destination="pPO-Zs-zBt" id="reG-LJ-gkk"/>
+                        <outlet property="listView" destination="ijc-DY-e0F" id="yGt-AK-G8P"/>
                         <outlet property="progressSlider" destination="Mjx-lm-FhP" id="z6h-ee-UAs"/>
                         <outlet property="showImg" destination="OKj-W2-VHn" id="pOJ-ru-mIp"/>
                     </connections>
@@ -146,21 +164,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oJJ-TV-Sph" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8.8000000000000007" y="125.4872563718141"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="el4-AP-sRL">
-            <objects>
-                <viewController id="uno-6c-fVK" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="KN6-k7-Nf1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="465"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PA6-hm-u68" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="675" y="388"/>
         </scene>
     </scenes>
     <resources>
