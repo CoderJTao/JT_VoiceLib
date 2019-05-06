@@ -8,19 +8,24 @@
 
 import UIKit
 import RxDataSources
-import HandyJSON
 
 // 左侧类别model
-struct CategoryJsonModel: HandyJSON {
+struct CategoryJsonModel: BaseJsonModel {
     var cover: String?
     var name: String?
     var position: Int?
+    
+    init(json: [String : Any]) throws {
+        self.cover = json["cover"] as? String
+        self.name = json["name"] as? String
+        self.position = json["position"] as? Int
+    }
 }
 
 
 
 // 右侧列表modle
-struct CategoryDetailListJsonModel: HandyJSON {
+struct CategoryDetailListJsonModel: BaseJsonModel {
 //    id: 2953430,
 //    title: "媚公卿",
 //    coverSmall: "http://fdfs.xmcdn.com/group11/M09/62/A7/wKgDa1XyutrTpvs5AATk-LotLTk893_mobile_small.jpg",
@@ -40,4 +45,16 @@ struct CategoryDetailListJsonModel: HandyJSON {
     var plays_count: Int?
     var tracks_count: Int?
     var selected: Bool?
+    
+    init(json: [String : Any]) throws {
+        self.id = json["id"] as? Int
+        self.title = json["title"] as? String
+        self.coverSmall = json["coverSmall"] as? String
+        self.coverLarge = json["coverLarge"] as? String
+        self.updatedAt = json["updatedAt"] as? Int
+        self.finished = json["finished"] as? Int
+        self.plays_count = json["plays_count"] as? Int
+        self.tracks_count = json["tracks_count"] as? Int
+        self.selected = json["selected"] as? Bool
+    }
 }

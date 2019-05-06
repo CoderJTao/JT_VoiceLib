@@ -32,8 +32,11 @@ class FindNextViewModel {
         NetWorkService.sharedInstance.getAlbumsList(uid: "\(uid)", pageNum: "\(pageNum)")
             .subscribe(onNext: { (albums) in
                 
-                self.albums.value = self.albums.value + albums.list!
-                self.totalPage = albums.maxPageId!
+                if let list = albums.list, let total = albums.maxPageId {
+                    self.albums.value = self.albums.value + list
+                    self.totalPage = total
+                }
+                
             }, onError: { (error) in
                 
             }).disposed(by: self.disposeBag)

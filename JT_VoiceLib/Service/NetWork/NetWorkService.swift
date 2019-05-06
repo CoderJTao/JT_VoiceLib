@@ -9,7 +9,6 @@
 import UIKit
 import RxSwift
 import Moya
-import HandyJSON
 
 class NetWorkService {
     
@@ -50,9 +49,10 @@ class NetWorkService {
                     .asObservable()
                     .subscribe(onNext: { (response) in
                         if let datas = (try? response.mapJSON()) as? [String: Any] {
-                            let sectionOfGather = SectionOfGather.deserialize(from: datas)
-                            observer.onNext(sectionOfGather!)
-                            observer.onCompleted()
+                            if let sectionOfGather = try? SectionOfGather(json: datas) {
+                                observer.onNext(sectionOfGather)
+                                observer.onCompleted()
+                            }
                         } else {
                             observer.onError("NetworkErrorCode.internalError" as! Error)
                         }
@@ -73,9 +73,10 @@ class NetWorkService {
                     .asObservable()
                     .subscribe(onNext: { (response) in
                         if let datas = (try? response.mapJSON()) as? [String: Any] {
-                            let sectionOfAlbums = SectionOfAlbums.deserialize(from: datas)
-                            observer.onNext(sectionOfAlbums!)
-                            observer.onCompleted()
+                            if let sectionOfAlbums = try? SectionOfAlbums(json: datas) {
+                                observer.onNext(sectionOfAlbums)
+                                observer.onCompleted()
+                            }
                         } else {
                              observer.onError("NetworkErrorCode.internalError" as! Error)
                         }
@@ -96,9 +97,10 @@ class NetWorkService {
                     .asObservable()
                     .subscribe(onNext: { (response) in
                         if let datas = (try? response.mapJSON()) as? [String: Any] {
-                            let sectionOfTracks = SectionOfTracks.deserialize(from: datas)
-                            observer.onNext(sectionOfTracks!)
-                            observer.onCompleted()
+                            if let sectionOfTracks = try? SectionOfTracks(json: datas) {
+                                observer.onNext(sectionOfTracks)
+                                observer.onCompleted()
+                            }
                         } else {
                             observer.onError("NetworkErrorCode.internalError" as! Error)
                         }
@@ -122,8 +124,9 @@ class NetWorkService {
                             let listArr = datas["tags"] as! [[String : Any]]
                             var tempArr = [CategoryJsonModel]()
                             for dic in listArr {
-                                let model = CategoryJsonModel.deserialize(from: dic)
-                                tempArr.append(model!)
+                                if let model = try? CategoryJsonModel(json: dic) {
+                                    tempArr.append(model)
+                                }
                             }
                             observer.onNext(tempArr)
                             observer.onCompleted()
@@ -151,8 +154,9 @@ class NetWorkService {
                             let listArr = datas["list"] as! [[String : Any]]
                             var tempArr = [CategoryDetailListJsonModel]()
                             for dic in listArr {
-                                let model = CategoryDetailListJsonModel.deserialize(from: dic)
-                                tempArr.append(model!)
+                                if let model = try? CategoryDetailListJsonModel(json: dic) {
+                                    tempArr.append(model)
+                                }
                             }
                             observer.onNext(tempArr)
                             observer.onCompleted()

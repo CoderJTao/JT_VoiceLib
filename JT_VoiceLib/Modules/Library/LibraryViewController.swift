@@ -62,7 +62,7 @@ class LibraryViewController: UIViewController {
         self.collectionView.rx.itemSelected
             .subscribe(onNext: { [unowned self] index in
                 let cell = self.collectionView.cellForItem(at: index) as! LibraryRightCell
-                self.collectionViewItemSelected(model: cell.jsonModel ?? CategoryDetailListJsonModel())
+                self.collectionViewItemSelected(model: cell.jsonModel ?? (try! CategoryDetailListJsonModel(json: [:])))
             })
             .disposed(by: disposeBag)
     }

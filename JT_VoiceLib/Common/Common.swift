@@ -34,3 +34,8 @@ let CachedFilePath = DocDir.appending("/CachedFile")
 
 // 下载文件夹路径
 let DownloadFilePath = DocDir.appending("/Download")
+
+// MARK: - JsonModel
+protocol BaseJsonModel {
+    init(json: [String: Any]) throws
+}

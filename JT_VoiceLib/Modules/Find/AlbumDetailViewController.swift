@@ -60,7 +60,14 @@ class AlbumDetailViewController: UIViewController {
             .subscribe(onNext: { [unowned self] index in
                 if index.section > 0 {
                     let cell = self.tableView.cellForRow(at: index) as! AlbumDetailCell
-                    self.itemSelected(model: cell.jsonModel!)
+                    
+                    if let model = cell.jsonModel {
+                        self.itemSelected(model: model)
+                    }
+                    
+                    if let indexPath = self.tableView.indexPath(for: cell) {
+                        self.tableView.deselectRow(at: indexPath, animated: true)
+                    }
                 }
             })
             .disposed(by: disposeBag)

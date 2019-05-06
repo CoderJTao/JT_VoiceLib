@@ -70,10 +70,8 @@ class PlayCacheHandler: NSObject {
                 print("failure")
                 
                 // 弹出提示框提示加载失败
-                
             }
         }
-        
         
         let provider = MoyaProvider<MultiTarget>()
         

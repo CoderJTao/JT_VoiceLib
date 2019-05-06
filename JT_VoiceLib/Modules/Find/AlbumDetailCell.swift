@@ -45,17 +45,21 @@ class AlbumDetailCell: UITableViewCell {
         //    updatedAt: 1503325520000
         self.showImg.kf.setImage(with: URL(string: model.coverSmall!))
         self.descLbl.text = model.title
-        self.playTimesLbl.text = String(format: "%d", model.playtimes!)
+        self.playTimesLbl.text = String(format: "%d次", model.playtimes!)
         self.durationLbl.text = self.getDuration()
         self.sizeLbl.text = self.getSize()
     }
     
     func getDuration() -> String {
         
-        let m = (jsonModel?.duration)! / 60
-        let s = (jsonModel?.duration)! - m*60
-        
-        return String(format: "%0d:%0d", m, s)
+        if let duration = jsonModel?.duration {
+            var use = Int(duration)
+            let m = use / 60
+            let s = use - m*60
+            
+            return String(format: "%0d:%0d", m, s)
+        }
+        return "00:00"
     }
     
     func getSize() -> String {
@@ -64,7 +68,7 @@ class AlbumDetailCell: UITableViewCell {
         let b = a / 1024
         let c = b / 1024
         
-        return String(format: "%.2f", c)
+        return String(format: "%.2fM", c)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

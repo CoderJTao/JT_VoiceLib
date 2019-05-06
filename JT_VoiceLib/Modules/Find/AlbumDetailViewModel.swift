@@ -33,17 +33,6 @@ class AlbumDetailViewModel {
         
         NetWorkService.sharedInstance.getTracksList(uid: "\(uid)", pageNum: "\(pageNum)")
             .subscribe(onNext: { (sections) in
-//                self.tracks.value = (sections.tracks?.list)!
-//                self.trackTop?.value = sections.album!
-//                self.totalPage = (sections.tracks?.maxPageId)!
-                
-                
-//                var temp : [AlbumModel] = []
-//                temp.append(AlbumModel.init(top: sections.album, detail: nil))
-//                for model in (sections.tracks?.list)! {
-//                    temp.append(AlbumModel.init(top: nil, detail: model))
-//                }
-//                self.allList.value = temp
                 
                 // 音频列表
                 self.tracks.value = (sections.tracks?.list)!

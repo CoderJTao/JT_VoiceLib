@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import  Kingfisher
+import Kingfisher
 
 class FindCardCell: UICollectionViewCell {
     
@@ -30,7 +30,7 @@ class FindCardCell: UICollectionViewCell {
     func setCell(model: GatherJsonModel) {
         self.jsonModel = model
         
-        self.showImg.heroID = "AlbumShowImage+\(String(describing: model.uid))"
+        self.showImg.hero.id = "AlbumShowImage+\(String(describing: model.uid))"
 
         let str = NSMutableString.init(string: (jsonModel?.mediumLogo)!)
         str.insert("x_", at: str.length-9)
@@ -52,7 +52,7 @@ class FindCardCell: UICollectionViewCell {
         let height = size.height
         //        let depth = CGFloat(11.0)
         //        let lessDepth = 0.8 * depth
-        let curvyness = CGFloat(3)
+        let curvyness = CGFloat(5)
         //        let radius = CGFloat(1)
         
         let path = UIBezierPath()

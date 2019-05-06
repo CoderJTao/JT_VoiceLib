@@ -18,7 +18,7 @@ class PlayViewController: UIViewController {
     var playModel: TracksJsonModel? {
         didSet {
             if let model = playModel {
-                PlayManager.sharedInstance.playModel = model
+//                PlayManager.sharedInstance.playModel = model
             }
         }
     }
@@ -42,11 +42,6 @@ class PlayViewController: UIViewController {
     
     @IBOutlet weak var listView: UIView!
     @IBOutlet weak var listTableView: UITableView!
-    
-    
-    
-    
-    
     
     
     override func viewWillAppear(_ animated: Bool) {

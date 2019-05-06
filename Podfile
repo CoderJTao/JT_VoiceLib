@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+# platform :ios, '11.0'
 
 target 'JT_VoiceLib' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -12,9 +12,7 @@ target 'JT_VoiceLib' do
 	pod 'RxCocoa', '~> 4.0.0'
 	pod 'Hero', '~> 1.0'
 	pod 'RxDataSources'
-	pod 'HandyJSON', '~> 4.0.0-beta.1'
 	pod 'Kingfisher'
-	pod 'RealmSwift', '~> 3.0.2'
 	pod 'Alamofire', '~> 4.5.1'
 	pod 'PKHUD', '~> 5.0'
   target 'JT_VoiceLibTests' do

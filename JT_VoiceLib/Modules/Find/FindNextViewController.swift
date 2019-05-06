@@ -32,7 +32,7 @@ class FindNextViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.showImg.heroID = self.imageHeroId
+        self.showImg.hero.id = self.imageHeroId
         self.showImg.image = passImg
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.showNavigationBackButton()
